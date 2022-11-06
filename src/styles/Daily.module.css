@@ -1,0 +1,39 @@
+.form {
+  display: grid;
+  row-gap: 0.5rem;
+  padding: 2rem;
+  background-color: rgba(0, 205, 0, 0.5);
+}
+.input {
+  all: unset;
+  height: 2rem;
+  border: none;
+  outline: none;
+  font-family: cascadia code;
+  background-color: rgba(0, 155, 0, 0.5);
+  color: #fff;
+  padding-left: 1rem;
+}
+.btn {
+  background-color: rgba(0, 155, 0, 0.5);
+  margin-top: 1rem;
+  font-family: cascadia code;
+  height: 2rem;
+  transition: 1s;
+  border: none;
+}
+.btn:hover {
+  background-color: #fff;
+  transition: 1s;
+}
+.label {
+  font-family: cascadia code;
+  color: #000;
+}
+.result {
+  display: grid;
+  row-gap: 0.5rem;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: rgba(0, 205, 0, 0.5);
+}
