@@ -20,7 +20,7 @@ export default function Daily() {
     );
     const service = outstanding * (rate / 365);
     const charge = (service / 100) * day;
-    console.log(date);
+
     setServicecharge(Math.ceil(charge));
     setPrincipal(recoverable - servicecharge);
     setLastoutstanding(outstanding - principal);
@@ -54,16 +54,19 @@ export default function Daily() {
     setRate(0);
     setRecoverable(0);
     setDuration(0);
+    setResults([]);
+    setDate(0);
+    setDate2(0);
   };
   const autofill = () => {
     setOutstanding(100000);
-    setDate(moment(new Date(date)).format("YYYY-MM-DD"));
-    setDate2(
-      moment(new Date(date).setDate(date.getDate() + 30)).format("YYYY-MM-DD")
-    );
     setRate(24);
     setRecoverable(9500);
     setDuration(12);
+    setDate(moment(new Date()).format("YYYY-MM-DD"));
+    setDate2(
+      moment(new Date().setDate(new Date().getDate() + 30)).format("YYYY-MM-DD")
+    );
   };
   return (
     <div>

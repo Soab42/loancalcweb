@@ -1,6 +1,6 @@
 .form {
   display: grid;
-  grid-template-columns: repeat(2, 10rem);
+  grid-template-columns: repeat(2, 2fr);
   row-gap: 0.5rem;
   padding: 2rem;
   background-color: rgba(0, 205, 0, 0.5);
@@ -22,9 +22,11 @@
   height: 2rem;
   transition: 1s;
   border: none;
+  color: whitesmoke;
 }
 .btn:hover {
   background-color: #fff;
+  color: #000;
   transition: 1s;
 }
 .label {
@@ -36,6 +38,6 @@
   row-gap: 0.5rem;
   padding-left: 2rem;
   padding-right: 2rem;
-  grid-template-columns: repeat(2, 10rem);
+  grid-template-columns: repeat(2, 2fr);
   background-color: rgba(0, 205, 0, 0.5);
 }
