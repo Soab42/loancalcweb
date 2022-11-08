@@ -1,5 +1,6 @@
 import moment from "moment";
 import React, { useState, useEffect } from "react";
+import Instruction from "../../components/Instruction";
 
 import classes from "../../styles/Daily.module.css";
 export default function Daily() {
@@ -70,149 +71,176 @@ export default function Daily() {
   };
   return (
     <div>
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "x-large",
-          backgroundColor: "lightgreen",
-          fontFamily: "cascadia code",
-        }}
-      >
-        Daily Interest Calculation
+      <div className={classes.title}>
+        <div> Daily Interest Calculation</div>
       </div>
       <div className={classes.frame}>
         <div className={classes.form}>
-          <label className={classes.label}>Loan Outstanding</label>
-          <input
-            className={classes.input}
-            type="text"
-            value={outstanding}
-            onChange={(e) => setOutstanding(e.target.value)}
-          ></input>
           <label className={classes.label}>
-            Previous Month Collection Date
+            Loan Outstanding
+            <input
+              className={classes.input}
+              type="text"
+              value={outstanding}
+              onChange={(e) => setOutstanding(e.target.value)}
+            ></input>
           </label>
-          <input
-            className={classes.input}
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          ></input>
-          <label className={classes.label}>This Month Collection Date</label>
-          <input
-            className={classes.input}
-            value={date2}
-            type="date"
-            onChange={(e) => setDate2(e.target.value)}
-          ></input>
-          <label className={classes.label}>Interest Rate</label>
-          <input
-            className={classes.input}
-            value={rate}
-            type="text"
-            onChange={(e) => setRate(e.target.value)}
-          ></input>
-          <label className={classes.label}>Recoverable Amount</label>
-          <input
-            className={classes.input}
-            value={recoverable}
-            type="text"
-            onChange={(e) => setRecoverable(e.target.value)}
-          ></input>
-          <label className={classes.label}>Loan Durtion</label>
-          <input
-            className={classes.input}
-            type="text"
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-          ></input>
-          <button
-            className={classes.btn}
-            type="button"
-            value={"Calculate"}
-            onClick={result}
-          >
-            Calculate
-          </button>
-          <button
-            className={classes.btn}
-            type="button"
-            value={"Calculate"}
-            onClick={autofill}
-          >
-            Autofill
-          </button>
-          <button
-            className={classes.btn}
-            type="button"
-            value={"Calculate"}
-            onClick={reset}
-          >
-            Reset
-          </button>
+
+          <label className={classes.label}>
+            Previous Collection Date
+            <input
+              className={classes.input}
+              type="date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            ></input>
+          </label>
+
+          <label className={classes.label}>
+            Todays Collection Date
+            <input
+              className={classes.input}
+              value={date2}
+              type="date"
+              onChange={(e) => setDate2(e.target.value)}
+            ></input>
+          </label>
+
+          <label className={classes.label}>
+            Interest Rate
+            <input
+              className={classes.input}
+              value={rate}
+              type="text"
+              onChange={(e) => setRate(e.target.value)}
+            ></input>
+          </label>
+
+          <label className={classes.label}>
+            Recoverable Amount
+            <input
+              className={classes.input}
+              value={recoverable}
+              type="text"
+              onChange={(e) => setRecoverable(e.target.value)}
+            ></input>
+          </label>
+
+          <label className={classes.label}>
+            Loan Durtion
+            <input
+              className={classes.input}
+              type="text"
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+            ></input>
+          </label>
+          <div className={classes.btngrp}>
+            <button
+              className={classes.btn}
+              type="button"
+              value={"Calculate"}
+              onClick={result}
+            >
+              Calculate
+            </button>
+            <button
+              className={classes.btn}
+              type="button"
+              value={"Calculate"}
+              onClick={autofill}
+            >
+              Autofill
+            </button>
+            <button
+              className={classes.btn}
+              type="button"
+              value={"Calculate"}
+              onClick={reset}
+            >
+              Reset
+            </button>
+          </div>
         </div>
-        {outstanding > 0
-          ? results.map((x) => {
-              return (
-                <div className={classes.result}>
-                  <label className={classes.label}>Opening balance</label>
+        {results.length !== 0 ? (
+          results.map((x) => {
+            return (
+              <div className={classes.result}>
+                <label className={classes.label}>
+                  Opening balance{" "}
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
-                    value={x.outstanding}
+                    value={x.outstanding.toLocaleString("en-IN")}
                   />
-                  <label className={classes.label}>Interest Rate</label>
+                </label>
 
+                <label className={classes.label}>
+                  Interest Rate
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
                     value={x.rate}
                   />
-                  <label className={classes.label}>Calculation Day</label>
+                </label>
+
+                <label className={classes.label}>
+                  Calculation Day{" "}
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
                     value={x.day}
                   />
-                  <label className={classes.label}>
-                    This Month service charge
-                  </label>
+                </label>
+
+                <label className={classes.label}>
+                  This month principle
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
-                    value={x.servicecharge}
+                    value={x.principal.toLocaleString("en-IN")}
                   />
-                  <label className={classes.label}>This month principle</label>
+                </label>
+                <label className={classes.label}>
+                  This Month service charge{" "}
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
-                    value={x.principal}
+                    value={x.servicecharge.toLocaleString("en-IN")}
                   />
-                  <label className={classes.label}>
-                    This month recoverable
-                  </label>
+                </label>
+                <label className={classes.label}>
+                  This month recoverable
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
-                    value={x.recoverable}
+                    value={x.recoverable.toLocaleString("en-IN")}
                   />
-                  <label className={classes.label}>Closing balance</label>
+                </label>
+
+                <label className={classes.label}>
+                  Closing balance{" "}
                   <input
                     className={classes.input}
                     disabled
                     type={"text"}
-                    value={x.lastoutstanding}
+                    value={x.lastoutstanding.toLocaleString("en-IN")}
                   />
-                </div>
-              );
-            })
-          : null}
+                </label>
+              </div>
+            );
+          })
+        ) : (
+          <div className={classes.result}>
+            <Instruction />
+          </div>
+        )}
       </div>
     </div>
   );
