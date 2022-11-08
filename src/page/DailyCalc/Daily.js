@@ -76,11 +76,13 @@ export default function Daily() {
           fontSize: "x-large",
           backgroundColor: "lightgreen",
           fontFamily: "cascadia code",
+          height:"5rem",
         }}
       >
         Daily Interest Calculation
       </div>
       <div className={classes.frame}>
+      <div className={classes.elements}></div>
         <div className={classes.form}>
           <label className={classes.label}>Loan Outstanding</label>
           <input
@@ -126,6 +128,7 @@ export default function Daily() {
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
           ></input>
+          <div className={classes.btndiv}>
           <button
             className={classes.btn}
             type="button"
@@ -150,6 +153,7 @@ export default function Daily() {
           >
             Reset
           </button>
+          </div>
         </div>
         {outstanding > 0
           ? results.map((x) => {
