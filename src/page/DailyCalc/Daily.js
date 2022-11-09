@@ -1,6 +1,7 @@
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import Instruction from "../../components/Instruction";
+import Footer from "../../components/Footer";
 
 import classes from "../../styles/Daily.module.css";
 export default function Daily() {
@@ -19,7 +20,7 @@ export default function Daily() {
     setDay(
       Math.abs((new Date(date2) - new Date(date)) / (24 * 60 * 60 * 1000))
     );
-    const service = outstanding * (rate / 365);
+    const service = Number(outstanding) * (rate / 365);
     const charge = (service / 100) * day;
 
     setServicecharge(Math.ceil(charge));
@@ -64,15 +65,13 @@ export default function Daily() {
     setRate(24);
     setRecoverable(9500);
     setDuration(12);
-    setDate(moment(new Date()).format("YYYY-MM-DD"));
-    setDate2(
-      moment(new Date().setDate(new Date().getDate() + 30)).format("YYYY-MM-DD")
-    );
+    setDate( moment(new Date().setDate(new Date().getDate() - 30)).format("YYYY-MM-DD") );
+    setDate2( moment(new Date()).format("YYYY-MM-DD") );
   };
   return (
     <div>
       <div className={classes.title}>
-        <div> Daily Interest Calculation</div>
+        <p> Daily Interest Calculation</p>
       </div>
       <div className={classes.frame}>
         <div className={classes.form}>
@@ -82,7 +81,7 @@ export default function Daily() {
               className={classes.input}
               type="text"
               value={outstanding}
-              onChange={(e) => setOutstanding(e.target.value)}
+              onChange={(e) => setOutstanding(Number(e.target.value))}
             ></input>
           </label>
 
@@ -112,7 +111,7 @@ export default function Daily() {
               className={classes.input}
               value={rate}
               type="text"
-              onChange={(e) => setRate(e.target.value)}
+              onChange={(e) => setRate(Number(e.target.value))}
             ></input>
           </label>
 
@@ -122,7 +121,7 @@ export default function Daily() {
               className={classes.input}
               value={recoverable}
               type="text"
-              onChange={(e) => setRecoverable(e.target.value)}
+              onChange={(e) => setRecoverable(Number(e.target.value))}
             ></input>
           </label>
 
@@ -132,7 +131,7 @@ export default function Daily() {
               className={classes.input}
               type="text"
               value={duration}
-              onChange={(e) => setDuration(e.target.value)}
+              onChange={(e) => setDuration(Number(e.target.value))}
             ></input>
           </label>
           <div className={classes.btngrp}>
@@ -182,12 +181,12 @@ export default function Daily() {
                     className={classes.input}
                     disabled
                     type={"text"}
-                    value={x.rate}
+                    value={`${x.rate}%`}
                   />
                 </label>
 
                 <label className={classes.label}>
-                  Calculation Day{" "}
+                  Calculation Day
                   <input
                     className={classes.input}
                     disabled
@@ -197,7 +196,7 @@ export default function Daily() {
                 </label>
 
                 <label className={classes.label}>
-                  This month principle
+                  Principle
                   <input
                     className={classes.input}
                     disabled
@@ -206,7 +205,7 @@ export default function Daily() {
                   />
                 </label>
                 <label className={classes.label}>
-                  This Month service charge{" "}
+                  service charge
                   <input
                     className={classes.input}
                     disabled
@@ -215,7 +214,7 @@ export default function Daily() {
                   />
                 </label>
                 <label className={classes.label}>
-                  This month recoverable
+                  Recoverable
                   <input
                     className={classes.input}
                     disabled
@@ -242,6 +241,7 @@ export default function Daily() {
           </div>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
