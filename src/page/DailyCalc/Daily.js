@@ -65,8 +65,10 @@ export default function Daily() {
     setRate(24);
     setRecoverable(9500);
     setDuration(12);
-    setDate( moment(new Date().setDate(new Date().getDate() - 30)).format("YYYY-MM-DD") );
-    setDate2( moment(new Date()).format("YYYY-MM-DD") );
+    setDate(
+      moment(new Date().setDate(new Date().getDate() - 30)).format("YYYY-MM-DD")
+    );
+    setDate2(moment(new Date()).format("YYYY-MM-DD"));
   };
   return (
     <div>
@@ -126,7 +128,7 @@ export default function Daily() {
           </label>
 
           <label className={classes.label}>
-            Loan Durtion
+            Loan Duration
             <input
               className={classes.input}
               type="text"
