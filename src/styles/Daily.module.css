@@ -132,23 +132,21 @@
   background-color: lightgreen;
   text-align: center;
   row-gap: 0.31rem;
+  height: 5rem;
   margin-top: 2rem;
   background-color: transparent;
   box-shadow: inset 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
+
   font-family: cascadia code;
-  position: static;
+  position: relative;
 }
 .calcicon {
-  position: absolute;
-  top: 37rem;
+  position: fixed;
+  top: 540px;
   right: 10px;
-}
-.calc {
-  position: absolute;
-  top: 20rem;
-  right: 1rem;
   transition: 1s;
 }
+
 @media (max-width: 500px) {
   .frame {
     grid-template-columns: 1fr;

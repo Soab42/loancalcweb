@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 
 export default function Calculator() {
-  const [data, setdata] = useState();
+  const [data, setdata] = useState(0);
   const [result, setResult] = useState(0);
   const calculate = () => {
     setResult(eval(data));
   };
   const Reset = () => {
-    setdata();
+    setdata(0);
     setResult(0);
   };
+
   return (
     <div
       style={{
@@ -82,6 +83,7 @@ export default function Calculator() {
         >
           <button
             onClick={calculate}
+            onMouseOver
             style={{
               height: 40,
               border: "none",
@@ -90,6 +92,7 @@ export default function Calculator() {
               width: 150,
               backgroundColor: "rgba(15,255,100,1)",
               textAlign: "center",
+              translate: 0,
             }}
           >
             Calculate
