@@ -1,28 +1,19 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
 import Monthly from "./Monthly";
-import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
 import moment from "moment";
-
+import classes from "../../styles/New.module.css";
 export default function Newcalc() {
   const [interestrate, setInterestrate] = useState(0);
   const [openingoutstanding, setopeningOutstanding] = useState(0);
   const [recoverable, setRecoverable] = useState(0);
   const [data, setData] = useState([]);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
 
   const datasender = () => {
     setData([{ date, interestrate, openingoutstanding, recoverable }]);
   };
   const genehandle = () => {
+    setDate(moment(new Date()).format("YYYY-MM-DD"));
     setInterestrate(24);
     setRecoverable(9500);
     setopeningOutstanding(100000);
@@ -34,209 +25,116 @@ export default function Newcalc() {
     setData([]);
   };
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
-  };
-
-  const showMode = () => {
-    DateTimePickerAndroid.open({
-      value: date,
-      onChange,
-    });
-  };
-
   return (
-    <ScrollView style={styles.main}>
-      <View style={styles.header}>
-        <Text style={{ fontSize: 20 }}>PassBook</Text>
-      </View>
-      <View>
-        <View style={styles.tableheader}>
-          <Text style={styles.inputheadertop}>Disburse Date</Text>
-          <Text style={styles.inputheadertop}>interest Rate</Text>
-          <Text style={styles.inputheadertop}>recoverable amount</Text>
-          <Text style={styles.inputheadertop}>Opening Outstanding</Text>
-        </View>
-        <View style={styles.tableheader}>
-          <Text onPress={showMode} style={styles.inputheader}>
-            {moment(date).format("DD-MM-YY")}
-          </Text>
-          <TextInput
-            style={styles.inputheader}
-            keyboardType="numeric"
-            onChangeText={(number) => setInterestrate(Number(number))}
-          >
-            {interestrate}
-          </TextInput>
+    <div className={classes.main}>
+      <div className={classes.header}>
+        <div>PassBook</div>
+      </div>
+      <div className={classes.table}>
+        <div>
+          <div className={classes.tableheader}>
+            <div className={classes.inputheadertop} style={{ height: "30px" }}>
+              Disburse Date
+            </div>
+            <div className={classes.inputheadertop}>interest Rate</div>
+            <div className={classes.inputheadertop}>recoverable amount</div>
+            <div className={classes.inputheadertop}>Opening Outstanding</div>
+          </div>
+          <div className={classes.tableheader}>
+            <input
+              className={classes.inputheadertopinput}
+              type="date"
+              style={{ height: "30px" }}
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <input
+              type="text"
+              className={classes.inputheadertopinput}
+              onChange={(e) => setInterestrate(Number(e.target.value))}
+              value={interestrate}
+            />
 
-          <TextInput
-            style={styles.inputheader}
-            keyboardType="numeric"
-            onChangeText={(number) => setRecoverable(Number(number))}
-          >
-            {recoverable}
-          </TextInput>
+            <input
+              type="text"
+              className={classes.inputheadertopinput}
+              onChange={(number) => setRecoverable(Number(number.target.value))}
+              value={recoverable}
+            />
 
-          <TextInput
-            style={styles.inputheader}
-            keyboardType="numeric"
-            onChangeText={(number) => setopeningOutstanding(Number(number))}
-          >
-            {openingoutstanding}
-          </TextInput>
-        </View>
-      </View>
+            <input
+              type="text"
+              className={classes.inputheadertopinput}
+              onChange={(number) =>
+                setopeningOutstanding(Number(number.target.value))
+              }
+              value={openingoutstanding}
+            />
+          </div>
+        </div>
 
-      {openingoutstanding > 0 ? (
-        <>
-          <View style={styles.contenttableheader}>
-            <Text style={{ ...styles.tableheadertext, flex: 3.25 }}>#</Text>
-            <Text style={{ ...styles.tableheadertext }}>recoverable date</Text>
-            <Text style={{ ...styles.tableheadertext }}>collection date</Text>
-            <Text style={styles.tableheadertext}>recoverable amount</Text>
-            <Text style={styles.tableheadertext}>principle</Text>
-            <Text style={styles.tableheadertext}>service charge</Text>
-            <Text style={styles.tableheadertext}>Outstanding</Text>
-          </View>
+        {openingoutstanding > 0 ? (
+          <>
+            <thead className={classes.contenttableheader}>
+              <tr className={classes.tablecontentdiv}>#</tr>
+              <tr className={classes.tablecontentdiv}>recoverable date</tr>
+              <tr className={classes.tablecontentdiv}>collection date</tr>
+              <tr className={classes.tablecontentdiv}>recoverable amount</tr>
+              <tr className={classes.tablecontentdiv}>principle</tr>
+              <tr className={classes.tablecontentdiv}>service charge</tr>
+              <tr className={classes.tablecontentdiv}>Outstanding</tr>
+            </thead>
 
-          {data.map((x) => (
-            <ScrollView style={{ height: 350 }}>
-              <Monthly
-                sl={Number(0)}
-                date={new Date(x.date).setDate(
-                  new Date(x.date).getDate() + moment(x.date).daysInMonth()
-                )}
-                interestrate={x.interestrate}
-                recoverable={x.recoverable}
-                openingoutstanding={x.openingoutstanding}
-              />
-            </ScrollView>
-          ))}
-        </>
-      ) : null}
+            {data.map((x) => (
+              <div style={{ maxHeight: "60vh", overflow: "scroll" }}>
+                <Monthly
+                  sl={Number(0)}
+                  date={new Date(x.date).setDate(
+                    new Date(x.date).getDate() + moment(x.date).daysInMonth()
+                  )}
+                  interestrate={x.interestrate}
+                  recoverable={x.recoverable}
+                  openingoutstanding={x.openingoutstanding}
+                />
+              </div>
+            ))}
+          </>
+        ) : null}
 
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          marginVertical: 10,
-        }}
-      >
-        <TouchableOpacity onPress={datasender}>
-          <Text style={styles.generate}>Calculate</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={genehandle}>
-          <Text style={{ ...styles.generate, backgroundColor: "lightblue" }}>
-            Auto Fill
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={resethandle}>
-          <Text style={{ ...styles.generate, backgroundColor: "tomato" }}>
-            Reset
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            margin: 10,
+          }}
+        >
+          <div onClick={datasender}>
+            <div
+              className={classes.generate}
+              style={{ backgroundColor: "blue" }}
+            >
+              Calculate
+            </div>
+          </div>
+          <div onClick={genehandle}>
+            <div
+              className={classes.generate}
+              style={{ backgroundColor: "tomato" }}
+            >
+              Auto Fill
+            </div>
+          </div>
+          <div onClick={resethandle}>
+            <div
+              className={classes.generate}
+              style={{ backgroundColor: "red" }}
+            >
+              Reset
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
-
-const styles = StyleSheet.create({
-  main: {
-    backgroundColor: "rgba(0,255,0,0.15)",
-    paddingHorizontal: 5,
-  },
-  generate: {
-    textAlign: "center",
-    textAlignVertical: "center",
-    textTransform: "capitalize",
-    backgroundColor: "lightgreen",
-    width: 100,
-    height: 30,
-    borderRadius: 5,
-  },
-  container: {
-    flex: 1,
-    justifyContent: "center",
-  },
-  header: {
-    height: 30,
-    backgroundColor: "lightgreen",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  contenttableheader: {
-    flexDirection: "row",
-  },
-  tableheadertext: {
-    height: 45,
-    flex: 7,
-    textTransform: "capitalize",
-    textAlign: "center",
-    borderWidth: 0.3,
-    fontSize: 9,
-
-    textAlignVertical: "center",
-  },
-  tablecontenttext: {
-    height: 20,
-    flex: 7,
-    textTransform: "capitalize",
-    textAlign: "center",
-    borderWidth: 0.3,
-    fontSize: 12,
-    paddingHorizontal: 10,
-    textAlignVertical: "center",
-  },
-  tablecontentinput: {
-    height: 20,
-    flex: 7,
-    textTransform: "capitalize",
-    textAlign: "center",
-    borderWidth: 0.3,
-    fontSize: 12,
-    paddingHorizontal: 10,
-    textAlignVertical: "center",
-    backgroundColor: "white",
-    color: "black",
-  },
-  tableheader: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  tablerow: {
-    flexDirection: "row",
-
-    justifyContent: "flex-start",
-  },
-  inputheader: {
-    flex: 4,
-    textAlign: "center",
-    textAlignVertical: "center",
-    height: 30,
-    borderWidth: 0.3,
-
-    textTransform: "capitalize",
-    backgroundColor: "white",
-  },
-  inputheadertop: {
-    flex: 4,
-    textAlign: "center",
-    textAlignVertical: "center",
-    height: 40,
-    fontSize: 12,
-    borderWidth: 0.3,
-    paddingHorizontal: 5,
-    textTransform: "capitalize",
-  },
-
-  date: { borderWidth: 0.3, width: 60, height: 40, paddingHorizontal: 4 },
-  input: { width: 65, height: 40, borderWidth: 0.3, paddingHorizontal: 10 },
-  value: {
-    width: 65,
-    height: 40,
-    borderWidth: 0.3,
-    paddingHorizontal: 10,
-    paddingTop: 13,
-  },
-});
