@@ -4,6 +4,7 @@ import Instruction from "../../components/Instruction";
 import Footer from "../../components/Footer";
 
 import classes from "../../styles/Daily.module.css";
+import { Link } from "react-router-dom";
 export default function Daily() {
   const [outstanding, setOutstanding] = useState(0);
   const [rate, setRate] = useState(0);
@@ -22,6 +23,9 @@ export default function Daily() {
     );
     const service = Number(outstanding) * (rate / 365);
     const charge = (service / 100) * day;
+    recoverable < outstanding
+      ? setRecoverable(recoverable)
+      : setRecoverable(outstanding + Math.ceil(servicecharge));
 
     setServicecharge(Math.ceil(charge));
     setPrincipal(recoverable - servicecharge);
@@ -73,6 +77,14 @@ export default function Daily() {
   return (
     <div>
       <div className={classes.title}>
+        <Link
+          style={{
+            float: "right",
+          }}
+          to="/"
+        >
+          PassBook
+        </Link>
         <p> Daily Interest Calculation</p>
       </div>
       <div className={classes.frame}>

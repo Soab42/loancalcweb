@@ -25,6 +25,8 @@ export default function Monthly(props) {
     }
     getdata();
   }, [
+    sl,
+    props.sl,
     cdate3,
     servicecharge3,
     principle3,

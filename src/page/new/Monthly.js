@@ -8,20 +8,30 @@ export default function Monthly(props) {
   const [outstanding3, setOutstanding3] = useState(0);
   const [recoverable3, setRecoverable3] = useState(0);
   const [sl, setSl] = useState();
+  const [day, setDay] = useState();
+
   const [date, setDate] = useState(
-    moment(new Date(props.date)).format("YYYY-MM-DD")
+    moment(
+      new Date(props.date).setDate(
+        new Date(props.date).getDate() + moment(props.date).daysInMonth()
+      )
+    ).format("YYYY-MM-DD")
   );
 
   useEffect(() => {
-    async function getdata() {
-      const day =
+    function getdata() {
+      setDay(
         Math.abs(
           (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000)
-        ) + 30;
-
-      setServicecharge3(
-        ((props.openingoutstanding * (props.interestrate / 365)) / 100) * day
+        )
       );
+      const service =
+        Number(props.openingoutstanding) * (props.interestrate / 365);
+      const charge = (service / 100) * day;
+
+      console.log(day);
+
+      setServicecharge3(Math.ceil(charge));
       props.recoverable < props.openingoutstanding
         ? setRecoverable3(props.recoverable)
         : setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3));
@@ -33,6 +43,7 @@ export default function Monthly(props) {
     }
     getdata();
   }, [
+    day,
     props.sl,
     date,
     servicecharge3,
@@ -48,20 +59,37 @@ export default function Monthly(props) {
     <>
       <tr className={classes.contenttableheader}>
         <tr className={classes.tablecontentdiv}>{sl}</tr>
-        <td className={classes.tablecontentdiv}>
-          {moment(props.date).format("MM-DD-YY")}
-        </td>
 
-        <input
-          className={classes.tablecontentdiv}
-          type="date"
-          onChange={(e) => setDate(e.target.value)}
-          value={date}
-        />
+        <td className={classes.tablecontentdiv}>
+          <input
+            type="date"
+            style={
+              window.screen.width < 500
+                ? {
+                    fontSize: "10px",
+                    border: "none",
+                    fontWeight: "bold",
+                    outline: "none",
+                    letterSpacing: "-1px",
+                    backgroundColor: "transparent",
+                  }
+                : {
+                    fontWeight: "normal",
+                    fontSize: "inherit",
+                    border: "none",
+                    outline: "none",
+                    backgroundColor: "transparent",
+                  }
+            }
+            onChange={(e) => setDate(e.target.value)}
+            value={date}
+          />
+        </td>
 
         <td className={classes.tablecontentdiv}>
           {Math.ceil(recoverable3).toLocaleString("en-IN")}
         </td>
+        <td className={classes.tablecontentdiv}>{day}</td>
         <td className={classes.tablecontentdiv}>
           {Math.ceil(principle3).toLocaleString("en-IN")}
         </td>
@@ -78,9 +106,7 @@ export default function Monthly(props) {
           {outstanding3 > 0 ? (
             <Monthly
               sl={sl}
-              date={new Date(date).setDate(
-                new Date(date).getDate() + moment(date).daysInMonth()
-              )}
+              date={new Date(date).setDate(new Date(date).getDate())}
               interestrate={props.interestrate}
               recoverable={props.recoverable}
               openingoutstanding={outstanding3}

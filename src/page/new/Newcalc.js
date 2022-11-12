@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Monthly from "./Monthly";
 import moment from "moment";
 import classes from "../../styles/New.module.css";
+import { Link } from "react-router-dom";
 export default function Newcalc() {
   const [interestrate, setInterestrate] = useState(0);
   const [openingoutstanding, setopeningOutstanding] = useState(0);
@@ -28,7 +29,15 @@ export default function Newcalc() {
   return (
     <div className={classes.main}>
       <div className={classes.header}>
-        <div>PassBook</div>
+        <Link
+          style={{
+            float: "right",
+          }}
+          to="daily"
+        >
+          Daily
+        </Link>
+        PassBook
       </div>
       <div className={classes.table}>
         <div>
@@ -77,21 +86,19 @@ export default function Newcalc() {
           <>
             <thead className={classes.contenttableheader}>
               <tr className={classes.tablecontentdiv}>#</tr>
-              <tr className={classes.tablecontentdiv}>recoverable date</tr>
               <tr className={classes.tablecontentdiv}>collection date</tr>
               <tr className={classes.tablecontentdiv}>recoverable amount</tr>
+              <tr className={classes.tablecontentdiv}>day</tr>
               <tr className={classes.tablecontentdiv}>principle</tr>
               <tr className={classes.tablecontentdiv}>service charge</tr>
               <tr className={classes.tablecontentdiv}>Outstanding</tr>
             </thead>
 
             {data.map((x) => (
-              <div style={{ maxHeight: "60vh", overflow: "scroll" }}>
+              <div style={{ maxHeight: "55vh", overflow: "scroll" }}>
                 <Monthly
                   sl={Number(0)}
-                  date={new Date(x.date).setDate(
-                    new Date(x.date).getDate() + moment(x.date).daysInMonth()
-                  )}
+                  date={x.date}
                   interestrate={x.interestrate}
                   recoverable={x.recoverable}
                   openingoutstanding={x.openingoutstanding}
@@ -101,14 +108,7 @@ export default function Newcalc() {
           </>
         ) : null}
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            margin: 10,
-          }}
-        >
+        <div className={classes.btngroup}>
           <div onClick={datasender}>
             <div
               className={classes.generate}
