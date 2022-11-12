@@ -1,103 +1,122 @@
-import { Text, View, StyleSheet, TextInput, ScrollView } from "react-native";
 import React, { useEffect, useState } from "react";
+import classes from "../../styles/New.module.css";
+import moment from "moment";
 
 export default function Monthly(props) {
-  const [cdate3, setCdate3] = useState(props.loandisbursedate);
   const [principle3, setPrinciple3] = useState(0);
   const [servicecharge3, setServicecharge3] = useState(0);
   const [outstanding3, setOutstanding3] = useState(0);
   const [recoverable3, setRecoverable3] = useState(0);
   const [sl, setSl] = useState();
+  const [day, setDay] = useState();
+
+  const [date, setDate] = useState(
+    moment(
+      new Date(props.date).setDate(new Date(props.date).getDate() + 30)
+    ).format("YYYY-MM-DD")
+  );
+
   useEffect(() => {
-    async function getdata() {
-      const day = cdate3 - props.loandisbursedate + 30;
-      setServicecharge3(
-        props.openingoutstanding * day * (props.interestrate / 36000)
+    function getdata() {
+      setDay(
+        Math.abs(
+          (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000)
+        )
       );
+      const service =
+        Number(props.openingoutstanding) * (props.interestrate / 360);
+      const charge = (service / 100) * (day > 30 ? day : 30);
+
+      console.log(day);
+
+      setServicecharge3(charge);
       props.recoverable < props.openingoutstanding
         ? setRecoverable3(props.recoverable)
-        : setRecoverable3(props.openingoutstanding + servicecharge3);
+        : setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3));
 
-      setPrinciple3(recoverable3 - servicecharge3);
+      setPrinciple3(recoverable3 - Math.ceil(servicecharge3));
       setOutstanding3(props.openingoutstanding - principle3);
+
       setSl(props.sl + 1);
-      console.log(sl);
     }
     getdata();
   }, [
-    sl,
+    day,
     props.sl,
-    cdate3,
+    date,
     servicecharge3,
     principle3,
     recoverable3,
     props.openingoutstanding,
-    props.loandisbursedate,
+    props.date,
     props.recoverable,
     props.interestrate,
   ]);
 
   return (
     <>
-      <View style={styles.contenttableheader}>
-        <Text style={{ ...styles.tablecontenttext, flex: 3 }}>{sl}</Text>
-        <Text style={{ ...styles.tablecontenttext, flex: 4 }}>
-          {props.loandisbursedate}
-        </Text>
-        <TextInput
-          style={styles.tablecontentinput}
-          onChangeText={setCdate3}
-          keyboardType="numeric"
-        >
-          {cdate3}
-        </TextInput>
-
-        <Text style={styles.tablecontenttext}>{Math.ceil(recoverable3)}</Text>
-        <Text style={styles.tablecontenttext}>{Math.ceil(principle3)}</Text>
-        <Text style={styles.tablecontenttext}>
-          {Math.round(servicecharge3)}
-        </Text>
-        <Text style={styles.tablecontenttext}>{Math.ceil(outstanding3)}</Text>
-      </View>
-      <View>
-        {outstanding3 > 0 ? (
-          <Monthly
-            sl={sl}
-            loandisbursedate={props.loandisbursedate}
-            interestrate={props.interestrate}
-            recoverable={props.recoverable}
-            openingoutstanding={outstanding3}
+      <tr className={classes.contenttableheader}>
+        <tr className={classes.tablecontentdiv}>{sl}</tr>
+        <td className={classes.tablecontentdiv}>
+          <input
+            type="date"
+            style={
+              window.screen.width < 500
+                ? {
+                    fontSize: "10px",
+                    border: "none",
+                    fontWeight: "bold",
+                    outline: "none",
+                    fontFamily: "jura",
+                    letterSpacing: "-.9px",
+                    backgroundColor: "transparent",
+                  }
+                : {
+                    fontWeight: "normal",
+                    fontSize: "inherit",
+                    border: "none",
+                    fontFamily: "jura",
+                    outline: "none",
+                    width: "100%",
+                    textAlign: "center",
+                    backgroundColor: "transparent",
+                  }
+            }
+            onChange={(e) => setDate(e.target.value)}
+            value={date}
           />
-        ) : null}
-      </View>
+        </td>
+
+        <td className={classes.tablecontentdiv}>
+          {Math.ceil(recoverable3).toLocaleString("en-IN")}
+        </td>
+        <td className={classes.tablecontentdiv}>{day}</td>
+        <td className={classes.tablecontentdiv}>
+          {Math.ceil(principle3).toLocaleString("en-IN")}
+        </td>
+        <td className={classes.tablecontentdiv}>
+          {Math.round(servicecharge3).toLocaleString("en-IN")}
+        </td>
+        <td className={classes.tablecontentdiv}>
+          {Math.ceil(outstanding3).toLocaleString("en-IN")}
+        </td>
+      </tr>
+
+      {
+        <div>
+          {outstanding3 > 0 ? (
+            <Monthly
+              sl={sl}
+              date={new Date(props.date).setDate(
+                new Date(props.date).getDate()
+              )}
+              interestrate={props.interestrate}
+              recoverable={props.recoverable}
+              openingoutstanding={outstanding3}
+            />
+          ) : null}
+        </div>
+      }
     </>
   );
 }
-const styles = StyleSheet.create({
-  contenttableheader: {
-    flexDirection: "row",
-  },
-
-  tablecontenttext: {
-    height: 20,
-    flex: 7,
-    textTransform: "capitalize",
-    textAlign: "center",
-    borderWidth: 0.3,
-    fontSize: 12,
-    paddingHorizontal: 2,
-    textAlignVertical: "center",
-  },
-  tablecontentinput: {
-    height: 20,
-    flex: 4,
-    textTransform: "capitalize",
-    textAlign: "center",
-    borderWidth: 0.3,
-    fontSize: 12,
-    paddingHorizontal: 2,
-    textAlignVertical: "center",
-    backgroundColor: "white",
-    color: "black",
-  },
-});

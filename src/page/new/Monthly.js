@@ -59,7 +59,6 @@ export default function Monthly(props) {
     <>
       <tr className={classes.contenttableheader}>
         <tr className={classes.tablecontentdiv}>{sl}</tr>
-
         <td className={classes.tablecontentdiv}>
           <input
             type="date"
@@ -70,14 +69,18 @@ export default function Monthly(props) {
                     border: "none",
                     fontWeight: "bold",
                     outline: "none",
-                    letterSpacing: "-1px",
+                    fontFamily: "jura",
+                    letterSpacing: "-.9px",
                     backgroundColor: "transparent",
                   }
                 : {
                     fontWeight: "normal",
                     fontSize: "inherit",
                     border: "none",
+                    fontFamily: "jura",
                     outline: "none",
+                    width: "100%",
+                    textAlign: "center",
                     backgroundColor: "transparent",
                   }
             }

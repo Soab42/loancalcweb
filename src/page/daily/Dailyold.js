@@ -1,9 +1,10 @@
 import moment from "moment";
 import React, { useState, useEffect } from "react";
 import Instruction from "../../components/Instruction";
+
 import classes from "../../styles/Daily.module.css";
 
-export default function Daily() {
+export default function Dailyold() {
   const [outstanding, setOutstanding] = useState(0);
   const [rate, setRate] = useState(0);
   const [recoverable, setRecoverable] = useState(0);
@@ -19,13 +20,13 @@ export default function Daily() {
     setDay(
       Math.abs((new Date(date2) - new Date(date)) / (24 * 60 * 60 * 1000))
     );
-    const service = Number(outstanding) * (rate / 365);
-    const charge = (service / 100) * day;
+    const service = Number(outstanding) * (rate / 360);
+    const charge = (service / 100) * (day > 30 ? day : 30);
     recoverable < outstanding
       ? setRecoverable(recoverable)
-      : setRecoverable(outstanding + Math.ceil(servicecharge));
+      : setRecoverable(outstanding + servicecharge);
 
-    setServicecharge(Math.ceil(charge));
+    setServicecharge(charge);
     setPrincipal(recoverable - servicecharge);
     setLastoutstanding(outstanding - principal);
   }, [
@@ -83,7 +84,7 @@ export default function Daily() {
             Loan Outstanding
             <input
               className={classes.input}
-              type="text"
+              type="number"
               value={outstanding}
               onChange={(e) => setOutstanding(Number(e.target.value))}
             ></input>
@@ -114,7 +115,7 @@ export default function Daily() {
             <input
               className={classes.input}
               value={rate}
-              type="text"
+              type="number"
               onChange={(e) => setRate(Number(e.target.value))}
             ></input>
           </label>
@@ -124,7 +125,7 @@ export default function Daily() {
             <input
               className={classes.input}
               value={recoverable}
-              type="text"
+              type="number"
               onChange={(e) => setRecoverable(Number(e.target.value))}
             ></input>
           </label>
@@ -133,7 +134,7 @@ export default function Daily() {
             Loan Duration
             <input
               className={classes.input}
-              type="text"
+              type="number"
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
             ></input>

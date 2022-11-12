@@ -2,7 +2,6 @@
   text-align: center;
   background-color: lightgreen;
   height: 4rem;
-  font-family: cascadia code;
   z-index: 100;
   font-size: 2rem;
   padding-top: 1rem;
@@ -10,7 +9,6 @@
 }
 .title p {
   margin: 0;
-  font-family: cascadia code;
 }
 .frame {
   display: grid;
@@ -24,7 +22,6 @@
   padding-left: 1rem;
   padding-top: 10px;
   padding-right: 1rem;
-
   grid-template-columns: repeat(3, 1fr);
 }
 .form {
@@ -53,7 +50,7 @@
   text-align: center;
   transition: 1s;
   letter-spacing: 0.1rem;
-  font-family: cascadia code;
+
   background-color: rgb(37, 164, 255);
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.2);
   color: #fff;
@@ -63,11 +60,11 @@
 .btn {
   background-color: rgba(0, 155, 0, 0.5);
   height: 3rem;
-  font-family: cascadia code;
+
   margin-bottom: 1rem;
   transition: 1s;
-
   border: none;
+  font-family: jura;
   font-size: large;
   border-top-left-radius: 2rem;
   border-top-right-radius: 2rem;
@@ -88,7 +85,6 @@
   transition: 1s;
 }
 .label {
-  font-family: cascadia code;
   color: #000;
   display: grid;
   background-color: rgba(15, 200, 100, 0.2);
@@ -109,7 +105,6 @@
   transition: 0.5s;
 }
 .instruction {
-  font-family: cascadia code;
   text-transform: capitalize;
   display: flex;
   flex-direction: column;
@@ -123,28 +118,6 @@
 .instruction p {
   margin-top: 0;
   padding-bottom: 0.1rem;
-}
-.footer {
-  justify-content: space-evenly;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  text-transform: capitalize;
-  background-color: lightgreen;
-  text-align: center;
-  row-gap: 0.31rem;
-  height: 5rem;
-  margin-top: 2rem;
-  background-color: transparent;
-  box-shadow: inset 0px 4px 8px 0 rgba(0, 0, 0, 0.2);
-
-  font-family: cascadia code;
-  position: relative;
-}
-.calcicon {
-  position: fixed;
-  top: 540px;
-  right: 10px;
-  transition: 1s;
 }
 
 @media (max-width: 500px) {
@@ -190,7 +163,6 @@
   }
   .title p {
     margin-top: 10px;
-    font-family: cascadia code;
     font-size: large;
   }
   .form {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Monthly from "./Monthly";
 import moment from "moment";
 import classes from "../../styles/New.module.css";
-import { Link } from "react-router-dom";
+
 export default function Newcalc() {
   const [interestrate, setInterestrate] = useState(0);
   const [openingoutstanding, setopeningOutstanding] = useState(0);
@@ -28,17 +28,7 @@ export default function Newcalc() {
 
   return (
     <div className={classes.main}>
-      <div className={classes.header}>
-        <Link
-          style={{
-            float: "right",
-          }}
-          to="daily"
-        >
-          Daily
-        </Link>
-        PassBook
-      </div>
+      <div className={classes.header}>PassBook</div>
       <div className={classes.table}>
         <div>
           <div className={classes.tableheader}>
@@ -53,26 +43,26 @@ export default function Newcalc() {
             <input
               className={classes.inputheadertopinput}
               type="date"
-              style={{ height: "30px" }}
+              style={{ height: "30px", fontFamily: "Jura" }}
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
             <input
-              type="text"
+              type="number"
               className={classes.inputheadertopinput}
               onChange={(e) => setInterestrate(Number(e.target.value))}
               value={interestrate}
             />
 
             <input
-              type="text"
+              type="number"
               className={classes.inputheadertopinput}
               onChange={(number) => setRecoverable(Number(number.target.value))}
               value={recoverable}
             />
 
             <input
-              type="text"
+              type="number"
               className={classes.inputheadertopinput}
               onChange={(number) =>
                 setopeningOutstanding(Number(number.target.value))
@@ -85,17 +75,17 @@ export default function Newcalc() {
         {openingoutstanding > 0 ? (
           <>
             <thead className={classes.contenttableheader}>
-              <tr className={classes.tablecontentdiv}>#</tr>
-              <tr className={classes.tablecontentdiv}>collection date</tr>
-              <tr className={classes.tablecontentdiv}>recoverable amount</tr>
-              <tr className={classes.tablecontentdiv}>day</tr>
-              <tr className={classes.tablecontentdiv}>principle</tr>
-              <tr className={classes.tablecontentdiv}>service charge</tr>
-              <tr className={classes.tablecontentdiv}>Outstanding</tr>
+              <tr className={classes.tablecontent}>#</tr>
+              <tr className={classes.tablecontent}>collection date</tr>
+              <tr className={classes.tablecontent}>recoverable amount</tr>
+              <tr className={classes.tablecontent}>day</tr>
+              <tr className={classes.tablecontent}>principle</tr>
+              <tr className={classes.tablecontent}>service charge</tr>
+              <tr className={classes.tablecontent}>Outstanding</tr>
             </thead>
 
             {data.map((x) => (
-              <div style={{ maxHeight: "55vh", overflow: "scroll" }}>
+              <div style={{ maxHeight: "57.2vh", overflow: "scroll" }}>
                 <Monthly
                   sl={Number(0)}
                   date={x.date}
@@ -109,29 +99,16 @@ export default function Newcalc() {
         ) : null}
 
         <div className={classes.btngroup}>
-          <div onClick={datasender}>
-            <div
-              className={classes.generate}
-              style={{ backgroundColor: "blue" }}
-            >
-              Calculate
-            </div>
+          <div onClick={datasender} className={classes.generate}>
+            Calculate
           </div>
-          <div onClick={genehandle}>
-            <div
-              className={classes.generate}
-              style={{ backgroundColor: "tomato" }}
-            >
-              Auto Fill
-            </div>
+
+          <div onClick={genehandle} className={classes.generate}>
+            Auto Fill
           </div>
-          <div onClick={resethandle}>
-            <div
-              className={classes.generate}
-              style={{ backgroundColor: "red" }}
-            >
-              Reset
-            </div>
+
+          <div onClick={resethandle} className={classes.generate}>
+            Reset
           </div>
         </div>
       </div>

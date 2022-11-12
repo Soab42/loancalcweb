@@ -4,7 +4,7 @@ import Calculator from "../page/Calculator";
 
 import CalculateIcon from "@mui/icons-material/CalculateSharp";
 import CloseIcon from "@mui/icons-material/Cancel";
-import classes from "../styles/Daily.module.css";
+import classes from "../styles/Layout.module.css";
 export default function Footer() {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -23,7 +23,7 @@ export default function Footer() {
   }
   return (
     <div
-      className={classes.footer}
+      className={classes.footercontent}
       style={{
         display: `${window.screen.width > 500 ? "flex" : "grid"}`,
       }}
