@@ -9,7 +9,6 @@ export default function Monthly(props) {
   const [recoverable3, setRecoverable3] = useState(0);
   const [sl, setSl] = useState();
   const [day, setDay] = useState();
-
   const [date, setDate] = useState(
     moment(
       new Date(props.date).setDate(
@@ -29,13 +28,10 @@ export default function Monthly(props) {
         Number(props.openingoutstanding) * (props.interestrate / 365);
       const charge = (service / 100) * day;
 
-      console.log(day);
-
       setServicecharge3(Math.ceil(charge));
-      props.recoverable < props.openingoutstanding
-        ? setRecoverable3(props.recoverable)
-        : setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3));
-
+      props.duration === props.sl + 1
+        ? setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3))
+        : setRecoverable3(props.recoverable);
       setPrinciple3(recoverable3 - Math.ceil(servicecharge3));
       setOutstanding3(props.openingoutstanding - principle3);
 
@@ -43,6 +39,7 @@ export default function Monthly(props) {
     }
     getdata();
   }, [
+    props.duration,
     day,
     props.sl,
     date,
@@ -113,6 +110,7 @@ export default function Monthly(props) {
               interestrate={props.interestrate}
               recoverable={props.recoverable}
               openingoutstanding={outstanding3}
+              duration={props.duration}
             />
           ) : null}
         </div>

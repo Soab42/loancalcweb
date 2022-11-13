@@ -26,7 +26,7 @@ export default function Dailyold() {
       ? setRecoverable(recoverable)
       : setRecoverable(outstanding + servicecharge);
 
-    setServicecharge(charge);
+    setServicecharge(Math.ceil(charge));
     setPrincipal(recoverable - servicecharge);
     setLastoutstanding(outstanding - principal);
   }, [
@@ -76,7 +76,7 @@ export default function Dailyold() {
   return (
     <div>
       <div className={classes.title}>
-        <p> Daily Interest Calculation</p>
+        <p>Old Daily Interest Calculation</p>
       </div>
       <div className={classes.frame}>
         <div className={classes.form}>
@@ -229,7 +229,7 @@ export default function Dailyold() {
                 </label>
 
                 <label className={classes.label}>
-                  Closing balance{" "}
+                  Closing balance
                   <input
                     className={classes.input}
                     disabled

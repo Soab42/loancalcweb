@@ -75,7 +75,7 @@ export default function Daily() {
   return (
     <div>
       <div className={classes.title}>
-        <p> Daily Interest Calculation</p>
+        <p>New Daily Interest Calculation</p>
       </div>
       <div className={classes.frame}>
         <div className={classes.form}>
@@ -83,7 +83,7 @@ export default function Daily() {
             Loan Outstanding
             <input
               className={classes.input}
-              type="text"
+              type="number"
               value={outstanding}
               onChange={(e) => setOutstanding(Number(e.target.value))}
             ></input>
@@ -114,7 +114,7 @@ export default function Daily() {
             <input
               className={classes.input}
               value={rate}
-              type="text"
+              type="number"
               onChange={(e) => setRate(Number(e.target.value))}
             ></input>
           </label>
@@ -124,7 +124,7 @@ export default function Daily() {
             <input
               className={classes.input}
               value={recoverable}
-              type="text"
+              type="number"
               onChange={(e) => setRecoverable(Number(e.target.value))}
             ></input>
           </label>
@@ -133,7 +133,7 @@ export default function Daily() {
             Loan Duration
             <input
               className={classes.input}
-              type="text"
+              type="number"
               value={duration}
               onChange={(e) => setDuration(Number(e.target.value))}
             ></input>

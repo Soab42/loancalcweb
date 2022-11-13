@@ -7,19 +7,24 @@ export default function Oldcalc() {
   const [interestrate, setInterestrate] = useState(0);
   const [openingoutstanding, setopeningOutstanding] = useState(0);
   const [recoverable, setRecoverable] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [data, setData] = useState([]);
   const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
 
   const datasender = () => {
-    setData([{ date, interestrate, openingoutstanding, recoverable }]);
+    setData([
+      { date, interestrate, openingoutstanding, recoverable, duration },
+    ]);
   };
   const genehandle = () => {
     setDate(moment(new Date()).format("YYYY-MM-DD"));
     setInterestrate(24);
+    setDuration(12);
     setRecoverable(9500);
     setopeningOutstanding(100000);
   };
   const resethandle = () => {
+    setDuration(0);
     setInterestrate(0);
     setRecoverable(0);
     setopeningOutstanding(0);
@@ -28,14 +33,13 @@ export default function Oldcalc() {
 
   return (
     <div className={classes.main}>
-      <div className={classes.header}>PassBook</div>
+      <div className={classes.header}>Old Calculation PassBook</div>
       <div className={classes.table}>
         <div>
           <div className={classes.tableheader}>
-            <div className={classes.inputheadertop} style={{ height: "30px" }}>
-              Disburse Date
-            </div>
+            <div className={classes.inputheadertop}>Disburse Date</div>
             <div className={classes.inputheadertop}>interest Rate</div>
+            <div className={classes.inputheadertop}>Loan Duration</div>
             <div className={classes.inputheadertop}>recoverable amount</div>
             <div className={classes.inputheadertop}>Opening Outstanding</div>
           </div>
@@ -53,7 +57,12 @@ export default function Oldcalc() {
               onChange={(e) => setInterestrate(Number(e.target.value))}
               value={interestrate}
             />
-
+            <input
+              type="number"
+              className={classes.inputheadertopinput}
+              onChange={(e) => setDuration(Number(e.target.value))}
+              value={duration}
+            />
             <input
               type="number"
               className={classes.inputheadertopinput}
@@ -85,10 +94,11 @@ export default function Oldcalc() {
             </thead>
 
             {data.map((x) => (
-              <div style={{ maxHeight: "57.2vh", overflow: "scroll" }}>
+              <div style={{ maxHeight: "57vh", overflow: "scroll" }}>
                 <Monthly
                   sl={Number(0)}
                   date={x.date}
+                  duration={Number(x.duration)}
                   interestrate={x.interestrate}
                   recoverable={x.recoverable}
                   openingoutstanding={x.openingoutstanding}

@@ -9,15 +9,17 @@ export default function Monthly(props) {
   const [recoverable3, setRecoverable3] = useState(0);
   const [sl, setSl] = useState();
   const [day, setDay] = useState();
-
   const [date, setDate] = useState(
     moment(
-      new Date(props.date).setDate(new Date(props.date).getDate() + 30)
+      new Date(props.date).setDate(
+        new Date(props.date).getDate() + moment(props.date).daysInMonth()
+      )
     ).format("YYYY-MM-DD")
   );
 
   useEffect(() => {
     function getdata() {
+      setSl(props.sl + 1);
       setDay(
         Math.abs(
           (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000)
@@ -26,21 +28,16 @@ export default function Monthly(props) {
       const service =
         Number(props.openingoutstanding) * (props.interestrate / 360);
       const charge = (service / 100) * (day > 30 ? day : 30);
-
-      console.log(day);
-
-      setServicecharge3(charge);
-      props.recoverable < props.openingoutstanding
-        ? setRecoverable3(props.recoverable)
-        : setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3));
-
+      setServicecharge3(Math.ceil(charge));
+      props.duration === props.sl + 1
+        ? setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3))
+        : setRecoverable3(props.recoverable);
       setPrinciple3(recoverable3 - Math.ceil(servicecharge3));
       setOutstanding3(props.openingoutstanding - principle3);
-
-      setSl(props.sl + 1);
     }
     getdata();
   }, [
+    props.duration,
     day,
     props.sl,
     date,
@@ -106,13 +103,15 @@ export default function Monthly(props) {
         <div>
           {outstanding3 > 0 ? (
             <Monthly
-              sl={sl}
+              sl={Number(sl)}
               date={new Date(props.date).setDate(
-                new Date(props.date).getDate()
+                new Date(props.date).getDate() +
+                  moment(new Date(props.date)).daysInMonth()
               )}
               interestrate={props.interestrate}
               recoverable={props.recoverable}
               openingoutstanding={outstanding3}
+              duration={props.duration}
             />
           ) : null}
         </div>

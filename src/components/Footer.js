@@ -37,7 +37,7 @@ export default function Footer() {
         <a href="https://wa.me/1644556543">01644556543</a>
       </p>
       <div className={classes.calcicon} onClick={openModal}>
-        {<CalculateIcon fontSize="large" color="primary" />}
+        {<CalculateIcon fontSize="large" color="success" />}
       </div>
 
       <Modal
