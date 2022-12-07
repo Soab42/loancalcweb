@@ -11,17 +11,14 @@ export default function Nav() {
         <NavLink className={classes.link} to="/">
           Daily
         </NavLink>
-        <NavLink className={classes.link} to="/dailyold">
-          Daily Old
-        </NavLink>
-        <NavLink className={classes.link} to="/new">
-          new calc
-        </NavLink>
+
+        {/* <NavLink className={classes.link} to="/new">
+          calc
+        </NavLink> */}
         <NavLink className={classes.link} to="/old">
-          old calc
+          PassBook
         </NavLink>
       </nav>
-      <user></user>
     </div>
   );
 }

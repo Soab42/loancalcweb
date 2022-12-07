@@ -28,7 +28,7 @@ export default function Newcalc() {
     setDuration(0);
     setRecoverable(0);
     setopeningOutstanding(0);
-    setDuration(12);
+    // setDuration(12);
     setData([]);
   };
 

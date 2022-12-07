@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+// import { Link } from "react-router-dom";
 
-export default function Burger() {
-  const [click, setClick] = useState(false);
+export default function Burger({ click2 }) {
+  const [click, setClick] = useState(click2);
   console.log(click);
   return (
     <div

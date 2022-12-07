@@ -75,7 +75,7 @@ export default function Daily() {
   return (
     <div>
       <div className={classes.title}>
-        <p>New Daily Interest Calculation</p>
+        <p> Daily Interest Calculation</p>
       </div>
       <div className={classes.frame}>
         <div className={classes.form}>
@@ -120,7 +120,7 @@ export default function Daily() {
           </label>
 
           <label className={classes.label}>
-            Recoverable Amount
+            Installment Amount
             <input
               className={classes.input}
               value={recoverable}
@@ -129,15 +129,6 @@ export default function Daily() {
             ></input>
           </label>
 
-          <label className={classes.label}>
-            Loan Duration
-            <input
-              className={classes.input}
-              type="number"
-              value={duration}
-              onChange={(e) => setDuration(Number(e.target.value))}
-            ></input>
-          </label>
           <div className={classes.btngrp}>
             <button
               className={classes.btn}
@@ -218,7 +209,7 @@ export default function Daily() {
                   />
                 </label>
                 <label className={classes.label}>
-                  Recoverable
+                  Installment Amount
                   <input
                     className={classes.input}
                     disabled

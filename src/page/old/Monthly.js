@@ -6,7 +6,8 @@ export default function Monthly(props) {
   const [principle3, setPrinciple3] = useState(0);
   const [servicecharge3, setServicecharge3] = useState(0);
   const [outstanding3, setOutstanding3] = useState(0);
-  const [recoverable3, setRecoverable3] = useState(0);
+  const [recoverable3, setRecoverable3] = useState(Number(props.recoverable));
+  const [total, setTotal] = useState(props.total);
   const [sl, setSl] = useState();
   const [day, setDay] = useState();
   const [date, setDate] = useState(
@@ -19,24 +20,31 @@ export default function Monthly(props) {
 
   useEffect(() => {
     function getdata() {
-      setSl(props.sl + 1);
       setDay(
         Math.abs(
           (new Date(date) - new Date(props.date)) / (24 * 60 * 60 * 1000)
         )
       );
       const service =
-        Number(props.openingoutstanding) * (props.interestrate / 360);
-      const charge = (service / 100) * (day > 30 ? day : 30);
+        Number(props.openingoutstanding) * (props.interestrate / 365);
+      const charge = (service / 100) * day;
+
       setServicecharge3(Math.ceil(charge));
       props.duration === props.sl + 1
         ? setRecoverable3(props.openingoutstanding + Math.ceil(servicecharge3))
-        : setRecoverable3(props.recoverable);
+        : setRecoverable3(
+            recoverable3 > props.openingoutstanding
+              ? props.openingoutstanding + servicecharge3
+              : recoverable3
+          );
       setPrinciple3(recoverable3 - Math.ceil(servicecharge3));
       setOutstanding3(props.openingoutstanding - principle3);
+      setTotal(recoverable3 + props.total);
+      setSl(props.sl + 1);
     }
     getdata();
   }, [
+    props.total,
     props.duration,
     day,
     props.sl,
@@ -85,7 +93,20 @@ export default function Monthly(props) {
         </td>
 
         <td className={classes.tablecontentdiv}>
-          {Math.ceil(recoverable3).toLocaleString("en-IN")}
+          <input
+            type={"number"}
+            style={{
+              textAlign: "center",
+              backgroundColor: "transparent",
+              outline: "none",
+              fontWeight: "bold",
+              fontFamily: "jura",
+              fontSize: "inherit",
+              border: "none",
+            }}
+            onChange={(e) => setRecoverable3(Number(e.target.value))}
+            value={Math.ceil(recoverable3)}
+          />
         </td>
         <td className={classes.tablecontentdiv}>{day}</td>
         <td className={classes.tablecontentdiv}>
@@ -98,20 +119,19 @@ export default function Monthly(props) {
           {Math.ceil(outstanding3).toLocaleString("en-IN")}
         </td>
       </tr>
+      {/* <div>{outstanding3 > 0 ? null : total}</div> */}
 
       {
         <div>
           {outstanding3 > 0 ? (
             <Monthly
-              sl={Number(sl)}
-              date={new Date(props.date).setDate(
-                new Date(props.date).getDate() +
-                  moment(new Date(props.date)).daysInMonth()
-              )}
+              sl={sl}
+              date={new Date(date).setDate(new Date(date).getDate())}
               interestrate={props.interestrate}
-              recoverable={props.recoverable}
+              recoverable={Number(props.recoverable)}
               openingoutstanding={outstanding3}
               duration={props.duration}
+              total={Number(total)}
             />
           ) : null}
         </div>

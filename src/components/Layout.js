@@ -2,8 +2,11 @@ import React from "react";
 import Footer from "./Footer";
 import Nav from "./Nav";
 import classes from "../styles/Layout.module.css";
+// import useClick from "./navsm/useClick";
 import Navsm from "./navsm/Navsm";
 export default function Layout({ children }) {
+  // const { Clicked } = useClick();
+
   return (
     <div className={classes.layout}>
       <nav className={classes.navbar}>

@@ -24,30 +24,31 @@ export default function Oldcalc() {
     setopeningOutstanding(100000);
   };
   const resethandle = () => {
-    setDuration(0);
     setInterestrate(0);
+    setDuration(0);
     setRecoverable(0);
     setopeningOutstanding(0);
+    // setDuration(12);
     setData([]);
   };
 
   return (
     <div className={classes.main}>
-      <div className={classes.header}>Old Calculation PassBook</div>
+      <div className={classes.header}>Manual Calculation PassBook</div>
       <div className={classes.table}>
         <div>
           <div className={classes.tableheader}>
             <div className={classes.inputheadertop}>Disburse Date</div>
             <div className={classes.inputheadertop}>interest Rate</div>
             <div className={classes.inputheadertop}>Loan Duration</div>
-            <div className={classes.inputheadertop}>recoverable amount</div>
+            <div className={classes.inputheadertop}>Installment amount</div>
             <div className={classes.inputheadertop}>Opening Outstanding</div>
           </div>
           <div className={classes.tableheader}>
             <input
               className={classes.inputheadertopinput}
               type="date"
-              style={{ height: "30px", fontFamily: "jura" }}
+              style={{ height: "30px", fontFamily: "Jura" }}
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
@@ -86,7 +87,7 @@ export default function Oldcalc() {
             <thead className={classes.contenttableheader}>
               <tr className={classes.tablecontent}>#</tr>
               <tr className={classes.tablecontent}>collection date</tr>
-              <tr className={classes.tablecontent}>recoverable amount</tr>
+              <tr className={classes.tablecontent}>Installment amount</tr>
               <tr className={classes.tablecontent}>day</tr>
               <tr className={classes.tablecontent}>principle</tr>
               <tr className={classes.tablecontent}>service charge</tr>
@@ -98,10 +99,11 @@ export default function Oldcalc() {
                 <Monthly
                   sl={Number(0)}
                   date={x.date}
-                  duration={Number(x.duration)}
                   interestrate={x.interestrate}
+                  duration={Number(x.duration)}
                   recoverable={x.recoverable}
                   openingoutstanding={x.openingoutstanding}
+                  total={0}
                 />
               </div>
             ))}
