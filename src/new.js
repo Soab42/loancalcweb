@@ -221,7 +221,7 @@ const styles = StyleSheet.create({
     flex: 2,
     fontSize: 13,
     fontWeight: "bold",
-    textAlignVertical: "center",
+    // textAlignVertical: "center",
     backgroundColor: "pink",
     borderBottomLeftRadius: 15,
     borderRadius: 15,

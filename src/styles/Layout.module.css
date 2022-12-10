@@ -7,15 +7,16 @@
 }
 .navbar {
   position: fixed;
-  background-color: rgba(5, 83, 41, 0.4);
+  background-color: rgba(5, 83, 41, 0.606);
   width: 100%;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.466);
   /* backdrop-filter: blur(5px); */
   z-index: 10;
 }
 .main {
-  margin-top: 7vh;
+  margin-top: 10vh;
   height: 88vh;
+  position: relative;
   overflow: scroll;
 }
 .footer {
@@ -57,6 +58,7 @@
 }
 .logo {
   font-family: Qahiri;
+  margin: 6px;
   font-size: 3rem;
   text-transform: capitalize;
   font-weight: 900;
@@ -83,6 +85,7 @@
   justify-content: center;
   color: bisque;
   transition: 1s;
+
   backdrop-filter: blur(5px);
   font-family: Jura;
   font-size: large;
@@ -92,7 +95,7 @@
 .link:nth-child(1) {
   border-top-left-radius: 1rem;
 }
-.link:nth-child(2) {
+.link:nth-child(3) {
   border-top-right-radius: 1rem;
   /* border-top-left-radius: 1rem; */
 }
@@ -105,8 +108,12 @@
 }
 @media (max-width: 500px) {
   .main {
-    margin-top: 9vh;
+    margin-top: 8vh;
     height: 90vh;
+  }
+  .logo {
+    /* margin: 1rem; */
+    font-size: larger;
   }
   .navbar {
     height: 8vh;

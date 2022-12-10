@@ -4,6 +4,7 @@ import Nav from "./Nav";
 import classes from "../styles/Layout.module.css";
 // import useClick from "./navsm/useClick";
 import Navsm from "./navsm/Navsm";
+
 export default function Layout({ children }) {
   // const { Clicked } = useClick();
 
@@ -13,6 +14,7 @@ export default function Layout({ children }) {
         {window.screen.width > 500 ? <Nav /> : <Navsm />}
       </nav>
       <main className={classes.main}>{children}</main>
+
       <footer className={classes.footer}>
         <Footer />
       </footer>

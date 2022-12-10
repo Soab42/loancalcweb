@@ -1,6 +1,7 @@
 // import { blue } from "@mui/material/colors";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../../auth/AuthContext";
 // import Burger from "./Burger";
 // import Menu from "./Menu";
 import "./nav.css";
@@ -8,6 +9,7 @@ import useClick from "./useClick";
 
 export default function Nav() {
   const { click, Clicked } = useClick();
+  const { currentUser } = useAuth();
   return (
     <div className="nav">
       <div className="logoicon">
@@ -70,6 +72,11 @@ export default function Nav() {
               : { translate: "0 0" }
           }
         >
+          {!currentUser ? null : (
+            <Link className="link" to="/list" onClick={Clicked}>
+              {currentUser.displayName}
+            </Link>
+          )}
           <Link className="link" to="/" onClick={Clicked} end>
             Daily
           </Link>
@@ -80,6 +87,18 @@ export default function Nav() {
           <Link className="link" to="/old" onClick={Clicked}>
             PassBook
           </Link>
+          <Link className="link" to="/list" onClick={Clicked}>
+            List
+          </Link>
+          {currentUser ? (
+            <Link className="link" to="/logout" onClick={Clicked}>
+              Logout
+            </Link>
+          ) : (
+            <Link className="link" to="/login" onClick={Clicked}>
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

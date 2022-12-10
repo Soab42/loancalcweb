@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import classes from "../../styles/New.module.css";
 import moment from "moment";
-import { getDatabase, ref, set } from "firebase/database";
-import { useAuth } from "../../auth/AuthContext";
+import { getDatabase, ref, set, update } from "firebase/database";
 import { app } from "../../Firebase";
-// import { InsertDriveFile } from "@mui/icons-material";
 
-export default function Monthly(props) {
+export default function Monthly1(props) {
   const [principle3, setPrinciple3] = useState(0);
   const [servicecharge3, setServicecharge3] = useState(0);
   const [outstanding3, setOutstanding3] = useState(0);
@@ -21,7 +19,6 @@ export default function Monthly(props) {
       )
     ).format("YYYY-MM-DD")
   );
-  const { currentUser } = useAuth();
 
   useEffect(() => {
     if (props.openingoutstanding > 0) {
@@ -64,34 +61,28 @@ export default function Monthly(props) {
   ]);
 
   useEffect(() => {
-    if (props.duration > props.sl && outstanding3 > -1) {
-      const data = {
-        date: date,
-        day: day,
-        recoverable: recoverable3,
-        principle: principle3,
-        servicecharge: servicecharge3,
-        outstanding: outstanding3,
-      };
-      const db = getDatabase(app);
-      const dataref = ref(
-        db,
-        currentUser.uid + "/" + props.id + "/passbook/" + props.sl
-      );
-      set(dataref, data).catch((err) => alert(`sorry! ${err}`));
-    }
+    const passbook = {
+      date: date,
+      day: day,
+      recoverable: recoverable3,
+      principle: principle3,
+      servicecharge: servicecharge3,
+      outstanding: outstanding3,
+    };
+    const db = getDatabase(app);
+    const dataref = ref(db, "zirani1need");
+    set(dataref, passbook);
   }, [
     date,
     servicecharge3,
     principle3,
     recoverable3,
-    currentUser,
     day,
-    props.id,
     props.sl,
+    props.id,
     props.recoverable,
     outstanding3,
-    props,
+    props.duration,
   ]);
 
   return (
@@ -160,8 +151,8 @@ export default function Monthly(props) {
         <div>
           {outstanding3 > 0 ? (
             <Monthly
-              sl={sl}
               id={props.id}
+              sl={sl}
               date={new Date(date).setDate(new Date(date).getDate())}
               interestrate={props.interestrate}
               recoverable={Number(props.recoverable)}
