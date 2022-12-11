@@ -212,7 +212,7 @@ export default function Database() {
               <p className="hp">: {data.loan.recoverable}</p>
               <p className="hp">interest indicative </p>
               <p className="hp">
-                : {(Number(data.loan.interestrate) / 365000).toFixed(8)}
+                : {(Number(data.loan.interestrate) / 36500).toFixed(8)}
               </p>
               <p className="hp">Loan Duration</p>{" "}
               <p className="hp">: {data.loan.duration}</p>
