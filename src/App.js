@@ -15,6 +15,7 @@ import Reg from "./page/Reg";
 import PrivateRoute from "./auth/PrivateRoute";
 import Logout from "./page/Logout";
 import PublicRoute from "./auth/PublicRoute";
+import Edit from "./page/Edit";
 function App() {
   return (
     <Router>
@@ -62,6 +63,14 @@ function App() {
               element={
                 <PublicRoute>
                   <List />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="edit/:id"
+              element={
+                <PublicRoute>
+                  <Edit />
                 </PublicRoute>
               }
             />

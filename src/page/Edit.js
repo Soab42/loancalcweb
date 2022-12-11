@@ -1,26 +1,21 @@
 import React from "react";
-import { useReactToPrint } from "react-to-print";
-import { useRef } from "react";
 import moment from "moment";
-import { getDatabase, onValue, query, ref } from "firebase/database";
+import { getDatabase, onValue, query, ref, remove } from "firebase/database";
 import { app } from "../Firebase";
 // import { async } from "@firebase/util";
 import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
-import { PrintSharp } from "@mui/icons-material";
+import { Delete } from "@mui/icons-material";
+// import { PrintSharp } from "@mui/icons-material";
 
 // import { flexbox } from "@mui/system";
 function Print({ children }) {
-  const prinpef = useRef(null);
-  const print = useReactToPrint({
-    content: () => prinpef.current,
-  });
   return (
-    <div style={{ padding: "1rem" }}>
+    <div style={{ minHeight: "100vh" }}>
       {/* ref div start hare...................... */}
-      <div ref={prinpef} style={{ margin: ".5rem" }}>
+      <div style={{ margin: ".5rem" }}>
         {/* header div start here............ */}
         <div
           style={{
@@ -71,89 +66,20 @@ function Print({ children }) {
             </p>
           </div>
         </div>
-        <div style={{ marginTop: "1rem" }}>{children}</div>
-        {/* Footer div start here.......................... */}
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
             marginTop: "1rem",
           }}
         >
-          <div
-            style={{
-              textTransform: "capitalize",
-              display: "grid",
-              gap: "10px",
-            }}
-          >
-            <div className="fst">
-              signature <section>:</section>
-            </div>
-            <div className="fst">
-              Prepaired by<section>:</section>
-            </div>
-            <div className="fst">
-              designation <section>:</section>
-            </div>
-          </div>
-          <div
-            style={{
-              textTransform: "capitalize",
-              display: "grid",
-              gap: "10px",
-            }}
-          >
-            <div className="fst">
-              signature <section>:</section>
-            </div>
-            <div className="fst">
-              Varified by<section>:</section>
-            </div>
-            <div className="fst">
-              designation <section>:</section>
-            </div>
-          </div>
-          <div
-            style={{
-              textTransform: "capitalize",
-              display: "grid",
-              gap: "10px",
-              marginRight: "8rem",
-            }}
-          >
-            <div className="fst">
-              signature <section>:</section>
-            </div>
-            <div className="fst">
-              Authorised by<section>:</section>
-            </div>
-            <div className="fst">
-              designation <section>:</section>
-            </div>
-          </div>
+          {children}
         </div>
+        {/* Footer div start here.......................... */}
       </div>
-      <button
-        onClick={print}
-        className="btn media"
-        style={{
-          width: "2rem",
-          position: "fixed",
-          bottom: "2rem",
-          right: "3rem",
-          margin: 0,
-          padding: 0,
-          backgroundColor: "transparent",
-        }}
-      >
-        <PrintSharp />
-      </button>
     </div>
   );
 }
 
-export default function Database() {
+export default function Edit() {
   const [data, setData] = useState();
   const [dataall, setDataall] = useState([]);
   const { id } = useParams(null);
@@ -179,7 +105,7 @@ export default function Database() {
     }
     fetchdata();
   }, [id, currentUser]);
-  // console.log(dataall);
+
   return (
     <div>
       <Print>
@@ -222,7 +148,7 @@ export default function Database() {
           "null"
         )}
         <table style={{ width: "100%", textTransform: "capitalize" }}>
-          <th className="trd">
+          <th className="tr">
             <td className="td">#</td>
             <td className="td">collection date</td>
             <td className="td">day</td>
@@ -230,12 +156,13 @@ export default function Database() {
             <td className="td">principle</td>
             <td className="td">service charge</td>
             <td className="td">Outstanding</td>
+            <td className="td">action</td>
           </th>
 
           <tbody>
             {dataall.map((x, key) => {
               return (
-                <tr className="trd">
+                <tr className="tr">
                   <td className="td">{key + 1}</td>
                   <td className="td">{moment(x.date).format("DD-MM-YYYY")}</td>
                   <td className="td">{x.day}</td>
@@ -243,6 +170,20 @@ export default function Database() {
                   <td className="td">{x.principle}</td>
                   <td className="td">{x.servicecharge}</td>
                   <td className="td">{x.outstanding}</td>
+                  <td
+                    className="td"
+                    onClick={() => {
+                      const db = getDatabase(app);
+                      const dataref = ref(
+                        db,
+                        currentUser.uid + "/" + id + "/passbook/" + key
+                      );
+                      // console.log(dataref);
+                      remove(dataref);
+                    }}
+                  >
+                    <Delete color="error" />
+                  </td>
                 </tr>
               );
             })}

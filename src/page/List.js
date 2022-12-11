@@ -1,16 +1,27 @@
-import { RemoveRedEye } from "@mui/icons-material";
+import {
+  Cancel,
+  Check,
+  ConfirmationNumber,
+  DeleteForever,
+  EditAttributes,
+  NoteAlt,
+  OneK,
+  RemoveRedEye,
+} from "@mui/icons-material";
 import React, { useState } from "react";
 // import { useAuth } from "../auth/AuthContext";
 import { Link } from "react-router-dom";
-import { getDatabase, onValue, query, ref } from "firebase/database";
+import { getDatabase, onValue, query, ref, remove } from "firebase/database";
 import { useAuth } from "../auth/AuthContext";
 import { app } from "../Firebase";
 import { useEffect } from "react";
+import Edit from "./Edit";
 export default function List() {
   const [data, setData] = useState(null);
   const [key, setKey] = useState(null);
   // const { currentUser } = useAuth();
   const { currentUser } = useAuth();
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     async function getdata() {
@@ -27,11 +38,15 @@ export default function List() {
     getdata();
   }, [currentUser]);
   useEffect(() => {});
+  const handlesubmit = (e) => {
+    e.preventDefault();
+  };
   //   console.log(data[0].loan.date);
   return (
     <div style={{ textAlign: "center" }}>
       <h1>Calculated List</h1>
-      <table style={{ justifyContent: "center" }}>
+
+      <table>
         <thead className="tr1">
           <th className="td1">sl</th>
           <th className="td1">Id</th>
@@ -56,9 +71,48 @@ export default function List() {
                       <Link to={`/print/${key[index]}`}>
                         <RemoveRedEye color="info" />
                       </Link>
-                      {/* <Link to="/print/">
-                        <Print />
-                      </Link> */}
+                      <Link to={`/edit/${key[index]}`}>
+                        <NoteAlt color="success" />
+                      </Link>
+                      <Link>
+                        <div
+                          onClick={() => {
+                            const db = getDatabase(app);
+                            const dbref = ref(
+                              db,
+                              currentUser.uid + "/" + key[index]
+                            );
+                            remove(dbref);
+                          }}
+                        >
+                          <DeleteForever color="error" />
+                        </div>
+                      </Link>
+                      {/* <div
+                        className="modalbg"
+                        style={{ display: !show ? "none" : "flex" }}
+                      >
+                        <form className="modal">
+                          <h3>Are you sure Want to Delete?</h3>
+
+                          <button
+                            type="submit"
+                            className="btn"
+                            onClick={handlesubmit}
+                          >
+                            <Check />
+                            ok
+                          </button>
+                          <button
+                            type="submit"
+                            className="btn"
+                            onClick={() => setShow(false)}
+                          >
+                            <Cancel />
+                            Cancel
+                          </button>
+                        </form>
+                      </div> */}
                     </td>
                   </tr>
                 );

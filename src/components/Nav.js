@@ -26,14 +26,18 @@ export default function Nav() {
           List
         </NavLink>
       </nav>
-      {!currentUser ? (
-        <Link to={"login"}>Login</Link>
-      ) : (
-        <div>
-          <h1>{currentUser.displayName}</h1>
-          <Link to="logout">Logout</Link>
-        </div>
-      )}
+      <div className={classes.userdiv}>
+        {!currentUser ? (
+          <div className={classes.user}>
+            <Link to={"login"}>Login</Link>
+          </div>
+        ) : (
+          <div className={classes.user}>
+            <h1>{currentUser.displayName}</h1>
+            <Link to="logout">Logout</Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

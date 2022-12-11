@@ -90,6 +90,18 @@ h6 {
 }
 .tr {
   display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  text-align: center;
+  font-size: medium;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  /* margin-right: 0; */
+
+  /* border: 1px solid; */
+}
+.trd {
+  display: grid;
   grid-template-columns: repeat(12, 1fr);
   text-align: center;
   font-size: medium;
@@ -285,7 +297,7 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.1rem;
   margin: 0;
 }
 .tr1 {

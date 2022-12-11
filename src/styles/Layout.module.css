@@ -141,3 +141,16 @@
     transition: 1s;
   }
 }
+.userdiv {
+  display: grid;
+  width: 100%;
+  /* background-color: #fff; */
+  grid-column: span 2;
+}
+.user {
+  display: flex;
+  gap: 2rem;
+  color: aqua;
+  justify-content: center;
+  align-items: center;
+}
