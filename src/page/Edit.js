@@ -12,8 +12,25 @@ import { Delete } from "@mui/icons-material";
 
 // import { flexbox } from "@mui/system";
 function Print({ children }) {
+  const { id } = useParams(null);
+  const [userinfo, setuserinfo] = useState({});
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    async function fetchdata() {
+      const db = getDatabase(app);
+      const dataref = ref(db, currentUser.uid + "/userinfo");
+      const dataquery = query(dataref);
+
+      onValue(dataquery, (snapshot) =>
+        snapshot.exists() ? setuserinfo(snapshot.val()) : null
+      );
+    }
+    fetchdata();
+  }, [id, currentUser]);
+
   return (
-    <div style={{ minHeight: "100vh" }}>
+    <div style={{ minHeight: "120vh", marginBottom: "5rem" }}>
       {/* ref div start hare...................... */}
       <div style={{ margin: ".5rem" }}>
         {/* header div start here............ */}
@@ -55,7 +72,7 @@ function Print({ children }) {
             <p style={{ display: "flex", gap: "1rem" }}>
               Branch Name:
               <section style={{ fontWeight: "bold" }}>
-                {"________________________"}
+                {userinfo.branchname} ({userinfo.code})
               </section>
             </p>
             <p style={{ display: "flex", gap: "1rem" }}>
@@ -88,11 +105,14 @@ export default function Edit() {
   useEffect(() => {
     async function fetchdata() {
       const db = getDatabase(app);
-      const dataref = ref(db, currentUser.uid + "/" + id);
+      const dataref = ref(db, currentUser.uid + "/loaninfo/" + id);
       const dataquery = query(dataref);
       // const snapshot = await get(dataquery);
 
-      const alldataref = ref(db, currentUser.uid + "/" + id + "/passbook");
+      const alldataref = ref(
+        db,
+        currentUser.uid + "/loaninfo/" + id + "/passbook"
+      );
       // const alldataquery = query(alldataref);
       // const snapshotall = await get(alldataquery);
       onValue(alldataref, (snapshot) =>
@@ -176,7 +196,7 @@ export default function Edit() {
                       const db = getDatabase(app);
                       const dataref = ref(
                         db,
-                        currentUser.uid + "/" + id + "/passbook/" + key
+                        currentUser.uid + "/loaninfo/" + id + "/passbook/" + key
                       );
                       // console.log(dataref);
                       remove(dataref);

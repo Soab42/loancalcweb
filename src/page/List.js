@@ -26,7 +26,7 @@ export default function List() {
   useEffect(() => {
     async function getdata() {
       const db = getDatabase(app);
-      const dbref = ref(db, currentUser.uid);
+      const dbref = ref(db, currentUser.uid + "/loaninfo");
       const dbquery = query(dbref);
       onValue(dbquery, (snapshot) => {
         if (snapshot.exists()) {
@@ -80,7 +80,7 @@ export default function List() {
                             const db = getDatabase(app);
                             const dbref = ref(
                               db,
-                              currentUser.uid + "/" + key[index]
+                              currentUser.uid + "/loaninfo/" + key[index]
                             );
                             remove(dbref);
                           }}

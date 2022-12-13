@@ -42,7 +42,7 @@ export default function Oldcalc() {
     };
     const dataref = ref(
       db,
-      currentUser.uid + "/" + idref.current.value + "/loan"
+      currentUser.uid + "/loaninfo/" + idref.current.value + "/loan"
     );
     idref.current.value = null;
     nameref.current.value = null;
@@ -61,7 +61,10 @@ export default function Oldcalc() {
       profile: { id: idref.current.value, name: nameref.current.value },
     };
     const db = getDatabase(app);
-    const dataref = ref(db, currentUser.uid + "/" + idref.current.value);
+    const dataref = ref(
+      db,
+      currentUser.uid + "/loaninfo/" + idref.current.value
+    );
     set(dataref, data)
       .then(() => alert(`added succesfully`))
       .catch((err) => alert(`sorry! ${err}`));

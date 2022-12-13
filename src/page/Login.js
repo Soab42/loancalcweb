@@ -1,13 +1,18 @@
 import { Lock, Mail } from "@mui/icons-material";
-import React, { useRef } from "react";
+import { Alert, Button } from "@mui/material";
+import { FirebaseError } from "firebase/app";
+import { useSnackbar } from "notistack";
+import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import classes from "../styles/Form.module.css";
 export default function Login() {
+  const [error, setError] = useState("");
   const email = useRef(null);
   const password = useRef(null);
   const { login } = useAuth();
   const history = useNavigate();
+
   async function handlesubmit(e) {
     e.preventDefault();
 
@@ -16,6 +21,7 @@ export default function Login() {
       history.push("/");
     } catch (err) {
       console.log(err);
+      setError("password don't march");
     }
   }
   return (
@@ -139,9 +145,17 @@ export default function Login() {
             />
           </div>
         </div>
+
         <button className={classes.btn} type="submit">
           Login
         </button>
+        <div style={{ textTransform: "capitalize" }}>
+          {error ? (
+            <Alert severity="error" variant="filled">
+              {error}
+            </Alert>
+          ) : null}
+        </div>
         <p>
           Dont have an account?{" "}
           <Link style={{ color: "seagreen", fontWeight: "bolder" }} to={"/reg"}>

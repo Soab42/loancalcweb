@@ -73,8 +73,8 @@ export default function Nav() {
           }
         >
           {!currentUser ? null : (
-            <Link className="link" to="/list" onClick={Clicked}>
-              {currentUser.displayName}
+            <Link className="link" to="/profile" onClick={Clicked}>
+              profile
             </Link>
           )}
           <Link className="link" to="/" onClick={Clicked} end>

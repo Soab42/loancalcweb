@@ -376,3 +376,7 @@ a:hover {
 }
 
 /* animation end.......................... */
+@page {
+  size: auto;
+  margin: 5mm;
+}

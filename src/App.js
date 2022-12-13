@@ -16,6 +16,7 @@ import PrivateRoute from "./auth/PrivateRoute";
 import Logout from "./page/Logout";
 import PublicRoute from "./auth/PublicRoute";
 import Edit from "./page/Edit";
+import Profile from "./page/Profile";
 function App() {
   return (
     <Router>
@@ -62,7 +63,7 @@ function App() {
               path="profile"
               element={
                 <PublicRoute>
-                  <List />
+                  <Profile />
                 </PublicRoute>
               }
             />

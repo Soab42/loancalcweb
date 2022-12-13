@@ -17,6 +17,22 @@ function Print({ children }) {
   const print = useReactToPrint({
     content: () => prinpef.current,
   });
+  const { id } = useParams(null);
+  const [userinfo, setuserinfo] = useState({});
+  const { currentUser } = useAuth();
+
+  useEffect(() => {
+    async function fetchdata() {
+      const db = getDatabase(app);
+      const dataref = ref(db, currentUser.uid + "/userinfo");
+      const dataquery = query(dataref);
+
+      onValue(dataquery, (snapshot) =>
+        snapshot.exists() ? setuserinfo(snapshot.val()) : null
+      );
+    }
+    fetchdata();
+  }, [id, currentUser]);
   return (
     <div style={{ padding: "1rem" }}>
       {/* ref div start hare...................... */}
@@ -60,7 +76,7 @@ function Print({ children }) {
             <p style={{ display: "flex", gap: "1rem" }}>
               Branch Name:
               <section style={{ fontWeight: "bold" }}>
-                {"________________________"}
+                {userinfo.branchname} ({userinfo.code})
               </section>
             </p>
             <p style={{ display: "flex", gap: "1rem" }}>
@@ -162,11 +178,14 @@ export default function Database() {
   useEffect(() => {
     async function fetchdata() {
       const db = getDatabase(app);
-      const dataref = ref(db, currentUser.uid + "/" + id);
+      const dataref = ref(db, currentUser.uid + "/loaninfo/" + id);
       const dataquery = query(dataref);
       // const snapshot = await get(dataquery);
 
-      const alldataref = ref(db, currentUser.uid + "/" + id + "/passbook");
+      const alldataref = ref(
+        db,
+        currentUser.uid + "/loaninfo/" + id + "/passbook"
+      );
       // const alldataquery = query(alldataref);
       // const snapshotall = await get(alldataquery);
       onValue(alldataref, (snapshot) =>

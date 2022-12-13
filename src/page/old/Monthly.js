@@ -76,7 +76,7 @@ export default function Monthly(props) {
       const db = getDatabase(app);
       const dataref = ref(
         db,
-        currentUser.uid + "/" + props.id + "/passbook/" + props.sl
+        currentUser.uid + "/loaninfo/" + props.id + "/passbook/" + props.sl
       );
       set(dataref, data).catch((err) => alert(`sorry! ${err}`));
     }

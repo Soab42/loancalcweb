@@ -4,6 +4,11 @@
 .layout {
   display: grid;
   position: relative;
+  /* background-image: radial-gradient(#ae7fb6 2px, transparent 2px),
+    radial-gradient(#474bff 2px, transparent 2px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+  background-color: #1fd095c0; */
 }
 .navbar {
   position: fixed;
@@ -16,6 +21,7 @@
 .main {
   margin-top: 10vh;
   height: 88vh;
+
   position: relative;
   overflow: scroll;
 }
@@ -71,7 +77,7 @@
 .navbtn {
   display: grid;
   padding-left: 20%;
-  grid-column: span 8;
+  grid-column: span 7;
   justify-content: end;
   text-transform: capitalize;
   transition: 1s;
@@ -105,6 +111,128 @@
   box-shadow: 0px 02px 10px 0px rgb(12, 76, 180);
   color: black;
   transition: 1s;
+}
+.userdiv {
+  display: grid;
+  width: 100%;
+
+  /* background-color: #fff; */
+  grid-column: span 3;
+}
+.user {
+  display: flex;
+  gap: 1rem;
+  color: rgb(232, 224, 133);
+  justify-content: center;
+
+  align-items: center;
+}
+.display {
+  background: #0fec76;
+  background: -webkit-linear-gradient(42deg, #474bff 0%, #bc48ff 100%);
+  background: linear-gradient(42deg, #27eb6c75 0%, #1bd4da 100%);
+  height: 3rem;
+  width: 3rem;
+  color: aliceblue;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4rem;
+  transition: 1s;
+  font-size: small;
+  color: rgba(243, 243, 243, 0.809);
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+  position: relative;
+  cursor: pointer;
+}
+.display:hover {
+  transition: 1s;
+  background: #0fec76;
+  background: -webkit-linear-gradient(42deg, #474bff 0%, #bc48ff 100%);
+  background: linear-gradient(42deg, #27eb6c75 0%, #1bd4da 100%);
+
+  box-shadow: 0px 0px 2px 2px rgba(7, 204, 248, 0.5);
+  color: rgb(251, 169, 54);
+}
+
+.dropmenu {
+  /* background-color: #fff; */
+  display: flex;
+  position: absolute;
+  animation: drop 1s forwards;
+  right: 10;
+  /* translate: 10rem; */
+  gap: 3px;
+  transition: 1s;
+  top: 3.5rem;
+}
+.droplist {
+  background: #0fec76;
+  background: -webkit-linear-gradient(42deg, #474bff 0%, #bc48ff 100%);
+  background: linear-gradient(42deg, #27eb6c75 0%, #1bd4da 100%);
+  height: 3rem;
+  width: 3rem;
+  /* color: aliceblue; */
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4rem;
+  transition: 1s;
+
+  font-size: small;
+  backdrop-filter: blur(10px);
+  color: rgba(243, 243, 243, 0.809);
+  box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.5);
+
+  cursor: pointer;
+}
+.droplist:nth-child(1) {
+  animation: drop1 1s;
+  position: absolute;
+  top: -55px;
+  right: -75px;
+}
+.droplist:nth-child(2) {
+  position: absolute;
+  animation: drop1 1s;
+  top: -55px;
+  left: -75px;
+}
+@keyframes drop {
+  from {
+    transform: rotateZ(0deg);
+    /* translate: 1rem; */
+  }
+  to {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes drop1 {
+  0% {
+    transition: 1s;
+    translate: -2rem;
+    z-index: -100000;
+    scale: 0;
+
+    /* z-index: -10000; */
+    /* width: 0px; */
+  }
+}
+.droplist:hover {
+  /* transform: scale(1.1); */
+  /* border-radius: 2rem; */
+  transition: 1s;
+  background: #0fec76;
+  background: -webkit-linear-gradient(42deg, #474bff 0%, #bc48ff 100%);
+  background: linear-gradient(42deg, #27eb6c75 0%, #1bd4da 100%);
+
+  box-shadow: 0px 0px 2px 2px rgba(7, 204, 248, 0.5);
+  color: rgb(10, 6, 1);
+  scale: 1.2;
+  z-index: 1;
+  /* scale: 1.1; */
 }
 @media (max-width: 500px) {
   .main {
@@ -140,17 +268,4 @@
     right: 20px;
     transition: 1s;
   }
-}
-.userdiv {
-  display: grid;
-  width: 100%;
-  /* background-color: #fff; */
-  grid-column: span 2;
-}
-.user {
-  display: flex;
-  gap: 2rem;
-  color: aqua;
-  justify-content: center;
-  align-items: center;
 }
