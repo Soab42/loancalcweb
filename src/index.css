@@ -380,3 +380,18 @@ a:hover {
   size: auto;
   margin: 5mm;
 }
+.dp {
+  width: 15vw;
+  border-radius: 1rem;
+  border: dashed;
+  position: absolute;
+  top: 15px;
+  left: 10px;
+  box-shadow: 4px 4px 12px 2px;
+}
+@media (max-width: 768px) {
+  .dp {
+    width: 25vw;
+    box-shadow: 2px 2px 5px 1px;
+  }
+}

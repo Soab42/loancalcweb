@@ -1,24 +1,31 @@
-import { Lock, Mail } from "@mui/icons-material";
+import { Facebook, Lock, Mail } from "@mui/icons-material";
 import { Alert, Button } from "@mui/material";
-import { FirebaseError } from "firebase/app";
-import { useSnackbar } from "notistack";
+
 import React, { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
+import { auth } from "../Firebase";
 import classes from "../styles/Form.module.css";
 export default function Login() {
   const [error, setError] = useState("");
   const email = useRef(null);
   const password = useRef(null);
-  const { login } = useAuth();
-  const history = useNavigate();
+  const { login, googlelogin } = useAuth();
 
   async function handlesubmit(e) {
     e.preventDefault();
 
     try {
       await login(email.current.value, password.current.value);
-      history.push("/");
+    } catch (err) {
+      console.log(err);
+      setError("password don't march");
+    }
+  }
+  async function glogin(e) {
+    e.preventDefault();
+    try {
+      await googlelogin();
     } catch (err) {
       console.log(err);
       setError("password don't march");
@@ -156,12 +163,45 @@ export default function Login() {
             </Alert>
           ) : null}
         </div>
-        <p>
+        <p style={{ textAlign: "center" }}>
           Dont have an account?{" "}
           <Link style={{ color: "seagreen", fontWeight: "bolder" }} to={"/reg"}>
             Register
           </Link>
         </p>
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            justifyContent: "center",
+            gap: ".7rem",
+          }}
+        >
+          <p>Or login with</p>
+          <div
+            style={{ all: "unset", cursor: "pointer", display: "flex" }}
+            onClick={glogin}
+          >
+            <img
+              style={{ width: "1.3rem" }}
+              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+              alt=""
+            />
+            <p style={{ fontWeight: "bolder" }}></p>
+          </div>
+
+          {/* <div
+            style={{
+              all: "unset",
+              color: "#4267B2",
+              fontSize: "1rem",
+              cursor: "pointer",
+            }}
+            onClick={"fblogin"}
+          >
+            <Facebook />
+          </div> */}
+        </div>
       </form>
     </div>
   );

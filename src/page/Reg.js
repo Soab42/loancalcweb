@@ -1,4 +1,4 @@
-import { Lock, Mail, People } from "@mui/icons-material";
+import { Facebook, Lock, Mail, People } from "@mui/icons-material";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "../styles/Form.module.css";
@@ -123,7 +123,7 @@ export default function Reg() {
       {/* animation end................ */}
 
       <form onSubmit={handlesubmit} className={classes.form}>
-        <h2>Registration Form</h2>
+        <h2 style={{ textAlign: "center" }}>Registration Form</h2>
         <div>
           <label>Email</label>
           <div className={classes.inpgrp}>

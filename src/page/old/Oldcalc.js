@@ -79,11 +79,11 @@ export default function Oldcalc() {
           <h3>Member Information</h3>
           <label>
             <p>Member Name</p>
-            <input ref={nameref} type={"text"} />
+            <input ref={nameref} type={"text"} required />
           </label>
           <label>
             <p>Member Id</p>
-            <input ref={idref} type={"number"} />
+            <input ref={idref} type={"number"} required />
           </label>
           <button type="submit" className="btn">
             Submit

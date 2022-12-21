@@ -12,7 +12,7 @@ import { width } from "@mui/system";
 import { get, getDatabase, onValue, query, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
-import { app } from "../Firebase";
+import { app, auth } from "../Firebase";
 
 export default function Profile() {
   const { currentUser } = useAuth();
@@ -23,7 +23,7 @@ export default function Profile() {
   const db = getDatabase(app);
   const [branchname, SetBranchname] = useState();
   const [code, SetCode] = useState();
-  console.log(userinfo.branchname);
+
   useEffect(() => {
     const dbref = ref(db, currentUser.uid + "/userinfo");
     const dbquery = query(dbref);
@@ -47,8 +47,16 @@ export default function Profile() {
       .catch((err) => alert("Error!"));
   };
   return (
-    <div style={{ marginTop: "9vh", textAlign: "center" }}>
-      <h1 ca>Profile</h1>
+    <div
+      style={{
+        marginTop: "15vh",
+        textAlign: "center",
+      }}
+    >
+      <h1>Profile</h1>
+      {auth.currentUser.photoURL ? (
+        <img src={auth.currentUser.photoURL} alt="" className="dp" />
+      ) : null}
       <div style={{ display: "flex", width: "100%" }}>
         <div
           style={{

@@ -6,6 +6,7 @@ import classes from "../styles/Layout.module.css";
 import { Person2Outlined } from "@mui/icons-material";
 import useClick from "./navsm/useClick";
 import { useState } from "react";
+import { auth } from "../Firebase";
 
 export default function Nav() {
   const { currentUser } = useAuth();
@@ -43,8 +44,18 @@ export default function Nav() {
               className={classes.display}
               onClick={() => (!click ? setClick(true) : setClick(false))}
             >
-              <Person2Outlined fontSize="large" className={classes.userlogo} />
-
+              {!auth.currentUser.photoURL ? (
+                <Person2Outlined
+                  fontSize="large"
+                  className={classes.userlogo}
+                />
+              ) : (
+                <img
+                  style={{ width: "50px", borderRadius: "25px" }}
+                  src={auth.currentUser.photoURL}
+                  alt={currentUser.displayName.slice(0, 1)}
+                />
+              )}
               <div
                 className={classes.dropmenu}
                 style={{ scale: !click ? "0" : "1" }}
