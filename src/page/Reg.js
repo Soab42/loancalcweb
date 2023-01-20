@@ -1,4 +1,4 @@
-import { Facebook, Lock, Mail, People } from "@mui/icons-material";
+import { Lock, Mail, People } from "@mui/icons-material";
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import classes from "../styles/Form.module.css";

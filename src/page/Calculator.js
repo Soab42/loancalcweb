@@ -1,20 +1,37 @@
-import React, { useState } from "react";
-
+/* eslint-disable no-eval */
+import { ArrowRightAlt } from "@mui/icons-material";
+import React, { useRef, useState } from "react";
+import * as math from "mathjs";
+import { useEffect } from "react";
 export default function Calculator() {
-  const [data, setdata] = useState(0);
+  const [data, setData] = useState(0);
   const [result, setResult] = useState(0);
-  const calculate = () => {
-    setResult(eval(data));
-  };
+  const dataref = useRef(null);
   const Reset = () => {
-    setdata(0);
+    setData(0);
     setResult(0);
   };
+  useEffect(() => {
+    const ref = dataref.current;
+    ref.focus();
 
+    return () => ref.blur();
+  }, [data]);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "=") {
+        setResult(math.evaluate(data));
+      }
+    };
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [data]);
   return (
     <div
       style={{
-        height: 200,
         width: 300,
         alignSelf: "center",
         display: "grid",
@@ -29,19 +46,21 @@ export default function Calculator() {
         <div
           style={{
             textAlign: "center",
-            height: 40,
+            height: 10,
             display: "flex",
             borderRadius: 25,
             justifyContent: "center",
             alignItems: "center",
+            fontSize: 20,
             marginBottom: 10,
+            fontWeight: "bolder",
           }}
         >
           Calculator
         </div>
-        <input
+        {/* <p
           style={{
-            height: 40,
+            height: 20,
             marginBottom: 10,
             borderRadius: 25,
             border: "none",
@@ -51,37 +70,177 @@ export default function Calculator() {
             outline: "none",
             textAlign: "center",
           }}
-          placeholder={"9500*3+245-10/2"}
-          onChange={(x) => setdata(x.target.value)}
-          cursorColor="black"
-          keyboardType="numeric"
-          value={data}
-        />
-        <input
+        >
+          {data}
+        </p> */}
+        <div
           style={{
-            height: 40,
-            borderRadius: 25,
-            marginBottom: 10,
+            height: 50,
+            width: 300,
             textShadow: "1.4px -.1px 1px rgba(0,0,0,1)",
-            border: "none",
-            textAlign: "center",
-            backgroundColor: "rgba(4,165,250,1)",
+            textAlign: "right",
+            backgroundColor: "rgba(10, 100, 100, .5)",
+            // border: "2px solid black",
+            // borderTopLeftRadius: "10px",
+            // borderTopRightRadius: "10px",
+            padding: ".41rem",
             fontWeight: "bold",
-            boxShadow: "0px 2px 2px 1px rgba(0,0,0,.2)",
-
+            boxShadow: "0px 2px 2px 1px rgba(0,10,0,.5)",
             fontSize: "large",
             color: "rgba(250,255,255,1)",
           }}
-          disabled
-          value={result.toLocaleString("en-IN")}
-        ></input>
+        >
+          <input
+            type="nummber"
+            ref={dataref}
+            value={data || 0}
+            onChange={(x) => {
+              data !== 0 ? setData(x.target.value) : setData(x.target.value);
+            }}
+            className="calcinpt"
+          />
+
+          <p style={{ color: "lightgreen", fontSize: 25 }}>
+            {result % 1 !== 0 ? result.toFixed(2) : result}
+          </p>
+        </div>
+        <div className="calc">
+          <div className="calcrow">
+            <p className="calcbtn" onClick={Reset}>
+              ac
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => setData(data.toString().slice(0, -1))}
+            >
+              <ArrowRightAlt />
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "%") : setData(0))}
+            >
+              %
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "/") : setData(0))}
+            >
+              ÷
+            </p>
+          </div>
+          <div className="calcrow">
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "7") : setData("7"))}
+            >
+              7
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "8") : setData(8))}
+            >
+              8
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "9") : setData("9"))}
+            >
+              9
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "*") : setData(0))}
+            >
+              *
+            </p>
+          </div>
+          <div className="calcrow">
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "4") : setData(4))}
+            >
+              4
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "5") : setData("5"))}
+            >
+              5
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "6") : setData("6"))}
+            >
+              6
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "-") : setData(0))}
+            >
+              -
+            </p>
+          </div>
+          <div className="calcrow">
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "1") : setData(1))}
+            >
+              1
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "2") : setData(2))}
+            >
+              2
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "3") : setData(3))}
+            >
+              3
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "+") : setData(0))}
+            >
+              +
+            </p>
+          </div>
+          <div className="calcrow">
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "0") : setData(0))}
+            >
+              0
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + "00") : setData("0"))}
+            >
+              00
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => (data !== 0 ? setData(data + ".") : setData("."))}
+            >
+              .
+            </p>
+            <p
+              className="calcbtn"
+              onClick={() => setResult(math.evaluate(data))}
+            >
+              =
+            </p>
+          </div>
+        </div>
+
         <div
           style={{
             flexDirection: "row",
             justifyContent: "space-between",
           }}
         >
-          <button
+          {/* <button
             onClick={calculate}
             onMouseOver
             style={{
@@ -109,7 +268,7 @@ export default function Calculator() {
             }}
           >
             Reset
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

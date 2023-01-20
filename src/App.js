@@ -17,6 +17,7 @@ import Logout from "./page/Logout";
 import PublicRoute from "./auth/PublicRoute";
 import Edit from "./page/Edit";
 import Profile from "./page/Profile";
+// import Carousel from "./page/Carosel";
 function App() {
   return (
     <Router>

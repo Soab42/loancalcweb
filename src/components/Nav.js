@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 
 import classes from "../styles/Layout.module.css";
 import { Person2Outlined } from "@mui/icons-material";
-import useClick from "./navsm/useClick";
+
 import { useState } from "react";
 import { auth } from "../Firebase";
 

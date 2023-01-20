@@ -1,10 +1,10 @@
-import { Facebook, Lock, Mail } from "@mui/icons-material";
-import { Alert, Button } from "@mui/material";
+import { Lock, Mail } from "@mui/icons-material";
+import { Alert } from "@mui/material";
 
 import React, { useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
-import { auth } from "../Firebase";
+
 import classes from "../styles/Form.module.css";
 export default function Login() {
   const [error, setError] = useState("");

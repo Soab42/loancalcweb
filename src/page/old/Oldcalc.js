@@ -4,7 +4,8 @@ import moment from "moment";
 import classes from "../../styles/New.module.css";
 import { useAuth } from "../../auth/AuthContext";
 import { app } from "../../Firebase";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, update } from "firebase/database";
+import { useNavigate } from "react-router-dom";
 
 export default function Oldcalc() {
   const [interestrate, setInterestrate] = useState(0);
@@ -17,6 +18,7 @@ export default function Oldcalc() {
   const idref = useRef(null);
   const nameref = useRef(null);
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   // console.log(currentUser.uid);
   // const id = !idref.current.value ? "null" : idref.current.value;
   const datasender = () => {
@@ -46,7 +48,9 @@ export default function Oldcalc() {
     );
     idref.current.value = null;
     nameref.current.value = null;
-    set(dataref, datas).catch((err) => alert(`sorry! ${err}`));
+    update(dataref, datas)
+      .then(navigate("/list"))
+      .catch((err) => alert(`sorry! ${err}`));
     setShow(true);
     setInterestrate(0);
     setDuration(0);
@@ -57,16 +61,29 @@ export default function Oldcalc() {
   };
   const handlesubmit = (e) => {
     e.preventDefault();
+    const db = getDatabase(app);
     const data = {
       profile: { id: idref.current.value, name: nameref.current.value },
     };
-    const db = getDatabase(app);
+    const data2 = {
+      date: "",
+      interestrate,
+      openingoutstanding,
+      recoverable,
+      duration,
+    };
+    const dataref2 = ref(
+      db,
+      currentUser.uid + "/loaninfo/" + idref.current.value + "/loan"
+    );
+    set(dataref2, data2).catch((err) => alert(`sorry! ${err}`));
+
     const dataref = ref(
       db,
       currentUser.uid + "/loaninfo/" + idref.current.value
     );
-    set(dataref, data)
-      .then(() => alert(`added succesfully`))
+    update(dataref, data)
+      .then()
       .catch((err) => alert(`sorry! ${err}`));
     setShow(false);
   };

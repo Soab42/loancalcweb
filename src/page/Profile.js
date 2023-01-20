@@ -1,15 +1,6 @@
-import { Label, SmartButton } from "@mui/icons-material";
-import {
-  Alert,
-  AlertTitle,
-  Button,
-  FormGroup,
-  Input,
-  InputLabel,
-  StepButton,
-} from "@mui/material";
-import { width } from "@mui/system";
-import { get, getDatabase, onValue, query, ref, set } from "firebase/database";
+import { Alert, AlertTitle, Button, Input, InputLabel } from "@mui/material";
+
+import { getDatabase, onValue, query, ref, set } from "firebase/database";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { app, auth } from "../Firebase";

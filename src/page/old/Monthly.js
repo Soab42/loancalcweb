@@ -36,11 +36,12 @@ export default function Monthly(props) {
         const charge = (service / 100) * day;
 
         setServicecharge3(Math.ceil(charge));
-        props.duration === props.sl + 1
-          ? setRecoverable3(
+        0 > props.openingoutstanding ||
+          (props.sl === props.duration - 1 &&
+            setRecoverable3(
               props.openingoutstanding + Math.ceil(servicecharge3)
-            )
-          : setRecoverable3(recoverable3);
+            ));
+        // : setRecoverable3(recoverable3);
         setPrinciple3(recoverable3 - Math.ceil(servicecharge3));
         setOutstanding3(props.openingoutstanding - principle3);
         setTotal(recoverable3 + props.total);

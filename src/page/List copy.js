@@ -10,13 +10,12 @@ import { useEffect } from "react";
 export default function List() {
   const [data, setData] = useState(null);
   const [key, setKey] = useState(null);
-  const { currentUser } = useAuth();
   // const { currentUser } = useAuth();
+  const { currentUser } = useAuth();
   // const [show, setShow] = useState(true);
   const navigate = useNavigate();
-  // console.log(currentUser);
   useEffect(() => {
-    function getdata() {
+    async function getdata() {
       const db = getDatabase(app);
       const dbref = ref(db, currentUser.uid + "/loaninfo");
       const dbquery = query(dbref);
@@ -29,6 +28,11 @@ export default function List() {
     }
     return getdata();
   }, [currentUser]);
+
+  // const handlesubmit = (e) => {
+  //   e.preventDefault();
+  // };
+  //   console.log(data[0].loan.date);
   return data ? (
     <div style={{ textAlign: "center" }}>
       <h1>Calculated List</h1>
@@ -85,30 +89,30 @@ export default function List() {
                         </div>
                       </Link>
                       {/* <div
-                          className="modalbg"
-                          style={{ display: !show ? "none" : "flex" }}
-                        >
-                          <form className="modal">
-                            <h3>Are you sure Want to Delete?</h3>
-  
-                            <button
-                              type="submit"
-                              className="btn"
-                              onClick={handlesubmit}
-                            >
-                              <Check />
-                              ok
-                            </button>
-                            <button
-                              type="submit"
-                              className="btn"
-                              onClick={() => setShow(false)}
-                            >
-                              <Cancel />
-                              Cancel
-                            </button>
-                          </form>
-                        </div> */}
+                        className="modalbg"
+                        style={{ display: !show ? "none" : "flex" }}
+                      >
+                        <form className="modal">
+                          <h3>Are you sure Want to Delete?</h3>
+
+                          <button
+                            type="submit"
+                            className="btn"
+                            onClick={handlesubmit}
+                          >
+                            <Check />
+                            ok
+                          </button>
+                          <button
+                            type="submit"
+                            className="btn"
+                            onClick={() => setShow(false)}
+                          >
+                            <Cancel />
+                            Cancel
+                          </button>
+                        </form>
+                      </div> */}
                     </td>
                   </tr>
                 );
@@ -134,4 +138,20 @@ export default function List() {
       Submit Some Passbook data.
     </div>
   );
+  // return (
+  //   <div
+  //     style={{
+  //       display: "flex",
+  //       flexDirection: "column",
+  //       justifyContent: "center",
+  //       alignItems: "center",
+  //       height: "80vh",
+  //     }}
+  //   >
+  //     <span style={{ fontSize: "4rem", textTransform: "uppercase" }}>
+  //       No data found!
+  //     </span>
+  //     Submit Some Passbook data.
+  //   </div>
+  // );
 }
