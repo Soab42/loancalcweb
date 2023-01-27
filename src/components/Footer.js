@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import Modal from "react-modal";
 import React from "react";
 import Calculator from "../page/Calculator";
@@ -5,6 +6,7 @@ import Calculator from "../page/Calculator";
 import CalculateIcon from "@mui/icons-material/CalculateSharp";
 import CloseIcon from "@mui/icons-material/Cancel";
 import classes from "../styles/Layout.module.css";
+import { Facebook, LinkedIn, WhatsApp } from "@mui/icons-material";
 export default function Footer() {
   let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
@@ -24,18 +26,61 @@ export default function Footer() {
   return (
     <div
       className={classes.footercontent}
-      style={{
-        display: `${window.screen.width > 500 ? "flex" : "grid"}`,
-      }}
+      // style={{
+      //   display: "flex",
+      //   alignItems: "center",
+      //   justifyItems: "start",
+      //   paddingBottom: "5px",
+      // }}
     >
-      <p>
-        {window.screen.width > 500 ? "All right reserved" : null} &copy; soab
-        mahmud
-      </p>
-      <p>
-        for project contact Whatsapp @
-        <a href="https://wa.me/1644556543">01644556543</a>
-      </p>
+      <a
+        href="https://www.linkedin.com/in/soab-mahmud-4a202787/"
+        target={"_blank"}
+        rel="noreferrer"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ color: "#0072b1" }}>
+          <LinkedIn />
+        </p>
+        <p>Soab Mahmud</p>
+      </a>
+
+      <a
+        href="https://www.facebook.com/syfuddhin/"
+        target={"_blank"}
+        rel="noreferrer"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ color: "#4267B2" }}>
+          <Facebook />
+        </p>
+        <p>Soab Mahmud</p>
+      </a>
+
+      <a
+        href="https://wa.me/1644556543"
+        target={"_blank"}
+        rel="noreferrer"
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <p style={{ color: "#075e54" }}>
+          <WhatsApp />
+        </p>
+        <p>+8801644556543</p>
+      </a>
+
       <div className={classes.calcicon} onClick={openModal}>
         {<CalculateIcon fontSize="large" color="success" />}
       </div>

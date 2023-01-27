@@ -22,6 +22,7 @@
   padding-left: 1rem;
   padding-top: 10px;
   padding-right: 1rem;
+  cursor: pointer;
   grid-template-columns: repeat(3, 1fr);
 }
 .form {
@@ -60,7 +61,7 @@
 .btn {
   background-color: rgba(0, 155, 0, 0.5);
   height: 3rem;
-
+  cursor: pointer;
   margin-bottom: 1rem;
   transition: 1s;
   border: none;

@@ -162,7 +162,7 @@
   height: 2rem;
   font-family: jura;
   background-color: rgba(0, 155, 0, 0.5);
-
+  cursor: pointer;
   transition: 1s;
   border: none;
   font-size: large;
