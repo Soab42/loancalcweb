@@ -265,6 +265,28 @@ export default function Database() {
                 </tr>
               );
             })}
+            <tr className="trd">
+              <td className=""></td>
+              <td className="td">total</td>
+              <td className="td">
+                {dataall.reduce((acc, current) => acc + current.day, 0)}
+              </td>
+              <td className="td">
+                {" "}
+                {dataall.reduce((acc, current) => acc + current.recoverable, 0)}
+              </td>
+              <td className="td">
+                {" "}
+                {dataall.reduce((acc, current) => acc + current.principle, 0)}
+              </td>
+              <td className="td">
+                {dataall.reduce(
+                  (acc, current) => acc + current.servicecharge,
+                  0
+                )}
+              </td>
+              <td className="td">{0}</td>
+            </tr>
           </tbody>
         </table>
       </Print>
