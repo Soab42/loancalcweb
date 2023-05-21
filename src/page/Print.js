@@ -51,15 +51,15 @@ function Print({ children }) {
           <div
             style={{
               display: "flex",
-              gap: "5px",
+              gap: "20px",
               alignItems: "center",
               justifySelf: "center",
             }}
           >
-            <img style={{ height: "2rem" }} src="/pmk.png" alt="" />
+            {/* <img style={{ height: "2rem" }} src="/pmk.png" alt="" /> */}
             <div>
-              <h2>Palli Mangol Karmosuchi</h2>
-              <p>Zirabo,ashulia,dhaka</p>
+              <h2> Org. Name:.......................................</h2>
+              <p>Address:......................................</p>
             </div>
           </div>
 
