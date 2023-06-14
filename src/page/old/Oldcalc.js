@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
-import Monthly from "./Monthly";
+import MonthlyR from "./MonthlyR";
 import moment from "moment";
 import classes from "../../styles/New.module.css";
 import { useAuth } from "../../auth/AuthContext";
 import { app } from "../../Firebase";
 import { getDatabase, ref, set, update } from "firebase/database";
 import { useNavigate } from "react-router-dom";
+import { addLoan } from "../../features/loan/loanSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Oldcalc() {
   const [interestrate, setInterestrate] = useState(0);
@@ -14,17 +16,23 @@ export default function Oldcalc() {
   const [duration, setDuration] = useState(0);
   const [data, setData] = useState([]);
   const [date, setDate] = useState(moment(new Date()).format("YYYY-MM-DD"));
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
+  //loan information
   const idref = useRef(null);
   const nameref = useRef(null);
   const { currentUser } = useAuth();
   const navigate = useNavigate();
+  const getLoan = useSelector((state) => state.loan);
+  const dispatch = useDispatch();
   // console.log(currentUser.uid);
   // const id = !idref.current.value ? "null" : idref.current.value;
   const datasender = () => {
     setData([
       { date, interestrate, openingoutstanding, recoverable, duration },
     ]);
+    dispatch(
+      addLoan({ date, interestrate, openingoutstanding, recoverable, duration })
+    );
   };
   const genehandle = () => {
     setDate(moment(new Date()).format("YYYY-MM-DD"));
@@ -34,24 +42,24 @@ export default function Oldcalc() {
     setopeningOutstanding(100000);
   };
   const resethandle = () => {
-    const db = getDatabase(app);
-    const datas = {
-      date,
-      interestrate,
-      openingoutstanding,
-      recoverable,
-      duration,
-    };
-    const dataref = ref(
-      db,
-      currentUser.uid + "/loaninfo/" + idref.current.value + "/loan"
-    );
-    idref.current.value = null;
-    nameref.current.value = null;
-    update(dataref, datas)
-      .then(navigate("/list"))
-      .catch((err) => alert(`sorry! ${err}`));
-    setShow(true);
+    // const db = getDatabase(app);
+    // const datas = {
+    //   date,
+    //   interestrate,
+    //   openingoutstanding,
+    //   recoverable,
+    //   duration,
+    // };
+    // const dataref = ref(
+    //   db,
+    //   currentUser.uid + "/loaninfo/" + idref.current.value + "/loan"
+    // );
+    // idref.current.value = null;
+    // nameref.current.value = null;
+    // update(dataref, datas)
+    //   .then(navigate("/list"))
+    //   .catch((err) => alert(`sorry! ${err}`));
+    // setShow(true);
     setInterestrate(0);
     setDuration(0);
     setRecoverable(0);
@@ -62,29 +70,37 @@ export default function Oldcalc() {
   const handlesubmit = (e) => {
     e.preventDefault();
     const db = getDatabase(app);
+    // member information
     const data = {
       profile: { id: idref.current.value, name: nameref.current.value },
     };
-    const data2 = {
-      date: "",
-      interestrate,
-      openingoutstanding,
-      recoverable,
-      duration,
-    };
-    const dataref2 = ref(
+
+    // reference for create loan
+    const loanDataRef2 = ref(
       db,
       currentUser.uid + "/loaninfo/" + idref.current.value + "/loan"
     );
-    set(dataref2, data2).catch((err) => alert(`sorry! ${err}`));
+    set(loanDataRef2, getLoan?.loanData).catch((err) => alert(`sorry! ${err}`));
 
-    const dataref = ref(
+    // reference for create member id register
+
+    const memberDataRef = ref(
       db,
       currentUser.uid + "/loaninfo/" + idref.current.value
     );
-    update(dataref, data)
+    update(memberDataRef, data)
       .then()
       .catch((err) => alert(`sorry! ${err}`));
+
+    // reference for Loan Recoverable list
+    const recoverableDataRef = ref(
+      db,
+      currentUser.uid + "/loaninfo/" + idref.current.value + "/passbook/"
+    );
+    set(recoverableDataRef, getLoan?.loanRecoverable)
+      .then(navigate("/list"))
+      .catch((err) => alert(`sorry! ${err}`));
+
     setShow(false);
   };
 
@@ -167,7 +183,7 @@ export default function Oldcalc() {
             </thead>
             <tbody style={{ maxHeight: "57vh", overflow: "scroll" }}>
               {data.map((x) => (
-                <Monthly
+                <MonthlyR
                   id={idref.current.value}
                   sl={Number(0)}
                   date={x.date}
@@ -192,11 +208,12 @@ export default function Oldcalc() {
           </div>
 
           <div onClick={resethandle} className={classes.generate}>
+            {/* Submit */}
+            Reset
+          </div>
+          <div onClick={() => setShow(true)} className={classes.generate}>
             Submit
           </div>
-          {/* <div onClick={""} className={classes.generate}>
-            Submit
-          </div> */}
         </div>
       </div>
     </div>

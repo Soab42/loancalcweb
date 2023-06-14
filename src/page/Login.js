@@ -34,7 +34,7 @@ export default function Login() {
   return (
     <div className={classes.main}>
       {/* animation ....................... */}
-      <div
+      {/* <div
         style={{
           position: "fixed",
           bottom: "150px",
@@ -124,7 +124,7 @@ export default function Login() {
             <use xlinkHref="#gentle-wave" x="48" y="7" fill="#fff" />
           </g>
         </svg>
-      </div>
+      </div> */}
       {/* animation end................ */}
       <form onSubmit={handlesubmit} className={classes.form}>
         <div className={classes.label}>

@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import classes from "../../styles/New.module.css";
 import moment from "moment";
-import { getDatabase, ref, set } from "firebase/database";
-import { useAuth } from "../../auth/AuthContext";
-import { app } from "../../Firebase";
-import { addLoan } from "../../features/loan/loanSlice";
-import { useDispatch } from "react-redux";
+
+import { addLoan, addLoanRecoverable } from "../../features/loan/loanSlice";
+import { useDispatch, useSelector } from "react-redux";
 // import { InsertDriveFile } from "@mui/icons-material";
 
 export default function Monthly(props) {
@@ -23,12 +21,9 @@ export default function Monthly(props) {
       )
     ).format("YYYY-MM-DD")
   );
+  const loanDuration = useSelector((state) => state.loan.loanData.duration);
   const dispatch = useDispatch();
-  const { currentUser } = useAuth();
-  useEffect(() => {
-    dispatch(addLoan(props));
-  }, [props, dispatch]);
-  console.log(day);
+
   useEffect(() => {
     if (props.openingoutstanding > 0) {
       function getdata() {
@@ -41,21 +36,34 @@ export default function Monthly(props) {
           Number(props.openingoutstanding) * (props.interestrate / 365);
         const charge = (service / 100) * day;
 
-        setServicecharge3(Math.ceil(charge));
+        setServicecharge3(charge);
         0 > props.openingoutstanding ||
           (props.sl === props.duration - 1 &&
-            setRecoverable3(
-              props.openingoutstanding + Math.ceil(servicecharge3)
-            ));
+            setRecoverable3(props.openingoutstanding + servicecharge3));
         // : setRecoverable3(recoverable3);
-        setPrinciple3(recoverable3 - Math.ceil(servicecharge3));
+        setPrinciple3(recoverable3 - servicecharge3);
         setOutstanding3(props.openingoutstanding - principle3);
         setTotal(recoverable3 + props.total);
         setSl(props.sl + 1);
       }
       getdata();
+      dispatch(
+        addLoanRecoverable({
+          date: date,
+          day: day,
+          openingoutstanding: Number(props.openingoutstanding.toFixed(0)),
+          previousDate: props.date,
+          recoverable: Number(recoverable3.toFixed(0)),
+          principle: Number(principle3.toFixed(2)),
+          servicecharge: Number(servicecharge3.toFixed(2)),
+          outstanding: Number(outstanding3.toFixed(0)),
+          sl: Number(props.sl),
+        })
+      );
     }
   }, [
+    dispatch,
+    outstanding3,
     props.total,
     props.duration,
     day,
@@ -68,39 +76,6 @@ export default function Monthly(props) {
     props.date,
     props.recoverable,
     props.interestrate,
-  ]);
-
-  useEffect(() => {
-    if (props.duration > props.sl && outstanding3 > -1) {
-      const data = {
-        date: date,
-        day: day,
-        recoverable: recoverable3,
-        principle: principle3,
-        servicecharge: servicecharge3,
-        outstanding: outstanding3,
-      };
-      dispatch(addLoan(data));
-      const db = getDatabase(app);
-      const dataref = ref(
-        db,
-        currentUser.uid + "/loaninfo/" + props.id + "/passbook/" + props.sl
-      );
-      set(dataref, data).catch((err) => alert(`sorry! ${err}`));
-    }
-  }, [
-    date,
-    servicecharge3,
-    principle3,
-    recoverable3,
-    currentUser,
-    day,
-    props.id,
-    props.sl,
-    props.recoverable,
-    outstanding3,
-    props,
-    dispatch,
   ]);
 
   return (
@@ -150,19 +125,13 @@ export default function Monthly(props) {
               border: "none",
             }}
             onChange={(e) => setRecoverable3(Number(e.target.value))}
-            value={Math.ceil(recoverable3)}
+            value={recoverable3.toFixed(0)}
           />
         </td>
         <td className={classes.tablecontentdiv}>{day}</td>
-        <td className={classes.tablecontentdiv}>
-          {Math.ceil(principle3).toLocaleString("en-IN")}
-        </td>
-        <td className={classes.tablecontentdiv}>
-          {Math.round(servicecharge3).toLocaleString("en-IN")}
-        </td>
-        <td className={classes.tablecontentdiv}>
-          {Math.ceil(outstanding3).toLocaleString("en-IN")}
-        </td>
+        <td className={classes.tablecontentdiv}>{principle3.toFixed(2)}</td>
+        <td className={classes.tablecontentdiv}>{servicecharge3.toFixed(2)}</td>
+        <td className={classes.tablecontentdiv}>{outstanding3.toFixed(0)}</td>
       </tr>
 
       {

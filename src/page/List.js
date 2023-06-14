@@ -46,22 +46,22 @@ export default function List() {
 
         <tbody>
           {data
-            ? data.map((x, index) => {
+            ? data?.map((x, index) => {
                 return (
                   <tr className="tr1">
                     <td className="td1">{index + 1}</td>
                     <td className="td1">{key[index]}</td>
-                    <td className="td1">{x.profile.name}</td>
-                    <td className="td1">{x.loan.date}</td>
-                    <td className="td1">{x.loan.openingoutstanding}</td>
-                    <td className="td1">{x.loan.duration}</td>
+                    <td className="td1">{x?.profile?.name}</td>
+                    <td className="td1">{x?.loan?.date}</td>
+                    <td className="td1">{x?.loan?.openingoutstanding}</td>
+                    <td className="td1">{x?.loan?.duration}</td>
                     <td className="td1">
-                      {x.loan.date && (
+                      {x?.loan?.date && (
                         <Link to={`/print/${key[index]}`}>
                           <RemoveRedEye color="info" />
                         </Link>
                       )}
-                      {x.loan.date && (
+                      {x.loan?.date && (
                         <Link to={`/edit/${key[index]}`}>
                           <NoteAlt color="success" />
                         </Link>

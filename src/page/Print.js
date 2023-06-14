@@ -56,10 +56,12 @@ function Print({ children }) {
               justifySelf: "center",
             }}
           >
-            <img style={{ height: "2rem" }} src="/pmk.png" alt="" />
+            {/* <img style={{ height: "2rem" }} src="/pmk.png" alt="" /> */}
             <div>
-              <h2>Palli Mangol Karmosuchi</h2>
-              <p>Zirabo,ashulia,dhaka</p>
+              {/* <h2>Palli Mangol Karmosuchi</h2> */}
+              <h1>.........................</h1>
+              {/* <p>Zirabo,ashulia,dhaka</p> */}
+              <h2>..........................</h2>
             </div>
           </div>
 
@@ -276,14 +278,14 @@ export default function Database() {
                 {dataall.reduce((acc, current) => acc + current.recoverable, 0)}
               </td>
               <td className="td">
-                {" "}
-                {dataall.reduce((acc, current) => acc + current.principle, 0)}
+                {dataall
+                  .reduce((acc, current) => acc + current.principle, 0)
+                  .toFixed(0)}
               </td>
               <td className="td">
-                {dataall.reduce(
-                  (acc, current) => acc + current.servicecharge,
-                  0
-                )}
+                {dataall
+                  .reduce((acc, current) => acc + current.servicecharge, 0)
+                  .toFixed(0)}
               </td>
               <td className="td">{0}</td>
             </tr>

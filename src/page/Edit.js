@@ -8,6 +8,8 @@ import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
 import { Delete } from "@mui/icons-material";
+import { useDispatch } from "react-redux";
+import { addLoan, addLoanRecoverableAll } from "../features/loan/loanSlice";
 // import { PrintSharp } from "@mui/icons-material";
 
 // import { flexbox } from "@mui/system";
@@ -101,30 +103,32 @@ export default function Edit() {
   const [dataall, setDataall] = useState([]);
   const { id } = useParams(null);
   const { currentUser } = useAuth();
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    async function fetchdata() {
+    async function fetchData() {
       const db = getDatabase(app);
-      const dataref = ref(db, currentUser.uid + "/loaninfo/" + id);
-      const dataquery = query(dataref);
-      // const snapshot = await get(dataquery);
+      const dataRef = ref(db, currentUser.uid + "/loaninfo/" + id);
+      const dataQuery = query(dataRef);
 
-      const alldataref = ref(
+      const allDataRef = ref(
         db,
         currentUser.uid + "/loaninfo/" + id + "/passbook"
       );
-      // const alldataquery = query(alldataref);
-      // const snapshotall = await get(alldataquery);
-      onValue(alldataref, (snapshot) =>
+
+      onValue(allDataRef, (snapshot) =>
         snapshot.exists() ? setDataall(snapshot.val()) : null
       );
-      onValue(dataquery, (snapshot) =>
+      onValue(dataQuery, (snapshot) =>
         snapshot.exists() ? setData(snapshot.val()) : null
       );
-      // setDataall(Object.values(snapshotall.val()));
     }
-    fetchdata();
-  }, [id, currentUser]);
+    fetchData();
+  }, [id, currentUser, dispatch]);
+
+  useEffect(() => {
+    dispatch(addLoan(data?.loan));
+    dispatch(addLoanRecoverableAll(dataall));
+  }, [data, dataall, dispatch]);
 
   return (
     <div>
