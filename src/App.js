@@ -3,6 +3,7 @@ import Daily from "./page/daily/Daily";
 // import Newcalc from "./page/new/Newcalc";
 
 import Oldcalc from "./page/old/Oldcalc";
+import AdminPanel from "./page/admin/AdminPanel";
 // import Dailyold from "./page/daily/Dailyold";
 import Layout from "./components/Layout";
 import Print from "./page/Print";
@@ -15,8 +16,12 @@ import Reg from "./page/Reg";
 import PrivateRoute from "./auth/PrivateRoute";
 import Logout from "./page/Logout";
 import PublicRoute from "./auth/PublicRoute";
+import AdminRoute from "./auth/AdminRoute";
 import Edit from "./page/Edit";
 import Profile from "./page/Profile";
+import Excel from "./page/Excel";
+
+import CashCounterPage from "./page/CashcounterPage";
 // import Carousel from "./page/Carosel";
 function App() {
   return (
@@ -31,6 +36,14 @@ function App() {
               element={
                 <PublicRoute>
                   <Oldcalc />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="cashCounter"
+              element={
+                <PublicRoute>
+                  <CashCounterPage />
                 </PublicRoute>
               }
             />
@@ -50,6 +63,14 @@ function App() {
                 <PrivateRoute>
                   <Login />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="admin"
+              element={
+                <AdminRoute>
+                  <AdminPanel />
+                </AdminRoute>
               }
             />
             <Route
@@ -82,6 +103,14 @@ function App() {
                 <PrivateRoute>
                   <Reg />
                 </PrivateRoute>
+              }
+            />
+            <Route
+              path="excel"
+              element={
+                <PublicRoute>
+                  <Excel />
+                </PublicRoute>
               }
             />
           </Routes>

@@ -1,0 +1,88 @@
+import React, { useState } from "react";
+import "../styles/CashCounter.css"; // Import your CSS file
+import { Close } from "@mui/icons-material";
+export default function CashCounter() {
+  const [denominations, setDenominations] = useState([
+    { value: 1000, count: "" },
+    { value: 500, count: "" },
+    { value: 200, count: "" },
+    { value: 100, count: "" },
+    { value: 50, count: "" },
+    { value: 20, count: "" },
+    { value: 10, count: "" },
+    { value: 5, count: "" },
+    { value: 2, count: "" },
+    { value: 1, count: "" },
+    { value: "extra", count: "" },
+  ]);
+
+  const handleInputChange = (event, index) => {
+    const newValue = event.target.value;
+    const updatedDenominations = [...denominations];
+    updatedDenominations[index].count = newValue;
+    setDenominations(updatedDenominations);
+  };
+
+  const resetValues = () => {
+    const resetDenominations = denominations.map((denomination) => ({
+      ...denomination,
+      count: "",
+    }));
+    setDenominations(resetDenominations);
+  };
+
+  const total = denominations.reduce((acc, denomination) => {
+    if (denomination.count && denomination.value !== "extra") {
+      return acc + denomination.value * parseInt(denomination.count, 10);
+    }
+    return acc;
+  }, 0);
+
+  const extraDenomination = denominations.find(
+    (denomination) => denomination.value === "extra"
+  );
+  return (
+    <div className="cash-counter">
+      <h2>Cash Counter</h2>
+      <br />
+      <button className="reset" onClick={resetValues}>
+        Reset
+      </button>
+      <label htmlFor="name">Name: </label>
+      <input type="text" name="" />
+      <div className="cashTable">
+        <div>
+          {denominations.map((denomination, index) => (
+            <div key={index} className="rowCounter">
+              <p>
+                {denomination.value !== "extra" ? denomination.value : "Extra "}
+                <Close />
+              </p>
+              <input
+                type="number"
+                value={denomination.count}
+                onChange={(e) => handleInputChange(e, index)}
+              />
+
+              <p>
+                {denomination.value !== "extra"
+                  ? `${denomination.value * denomination.count}`
+                  : denomination.count}
+              </p>
+            </div>
+          ))}
+          <div className="rowCounter">
+            <p>Total</p>
+
+            <input type="text" disabled />
+
+            <p>
+              {total +
+                (extraDenomination ? Number(extraDenomination.count) : 0)}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

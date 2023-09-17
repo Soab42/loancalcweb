@@ -30,6 +30,9 @@ export default function Nav() {
         <NavLink className={classes.link} to="/list">
           List
         </NavLink>
+        <NavLink className={classes.link} to="/cashCounter">
+          CashCounter
+        </NavLink>
       </nav>
       <div className={classes.userdiv}>
         {!currentUser ? (

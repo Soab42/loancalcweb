@@ -10,7 +10,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const email = useRef(null);
   const password = useRef(null);
-  const { login, googlelogin } = useAuth();
+  const { login, googlelogin, currentUser } = useAuth();
 
   async function handlesubmit(e) {
     e.preventDefault();

@@ -90,6 +90,9 @@ export default function Nav() {
           <Link className="link" to="/list" onClick={Clicked}>
             List
           </Link>
+          <Link className="link" to="/cashCounter" onClick={Clicked}>
+            Cash Counter
+          </Link>
           {currentUser ? (
             <Link className="link" to="/logout" onClick={Clicked}>
               Logout

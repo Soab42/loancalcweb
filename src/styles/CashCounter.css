@@ -1,0 +1,110 @@
+/* CashCounter.css */
+.cash-counter {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 10px;
+  background-color: #41c695;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.cashTable {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.cashTable p {
+  padding: 5px;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  width: 130px;
+}
+.rowCounter {
+  display: flex;
+  width: 100%;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+.cashTable input {
+  width: 150px;
+  /* height: 100%; */
+  padding: 5px;
+  font-size: medium;
+  text-align: center;
+}
+
+.reset-button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.counterPage {
+  display: flex;
+  gap: 1em;
+  padding: 10px;
+}
+.addBtn {
+  all: unset;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  background-color: #41c695af;
+  border-radius: 10px;
+  transition-duration: 500ms;
+  padding: 5px;
+  font-weight: 700;
+}
+.warpingDiv {
+  position: relative;
+}
+.removeBtn {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  background: transparent;
+  border-radius: 20px;
+  transition-duration: 500ms;
+  cursor: pointer;
+  color: #811547af;
+  right: 10px;
+}
+.removeBtn:hover {
+  color: lightcoral;
+  transition-duration: 500ms;
+}
+.addBtn:hover {
+  color: lightcoral;
+  background: #811547af;
+  transition-duration: 300ms;
+}
+.reset {
+  all: unset;
+  position: absolute;
+  transition-duration: 500ms;
+  top: 10px;
+  color: rgb(10, 104, 192);
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 2px;
+  cursor: pointer;
+  left: 10px;
+}
+
+.reset:hover {
+  background-color: #1addef;
+  transition-duration: 500ms;
+}

@@ -4,9 +4,11 @@ import Nav from "./Nav";
 import classes from "../styles/Layout.module.css";
 // import useClick from "./navsm/useClick";
 import Navsm from "./navsm/Navsm";
+import { useAuth } from "../auth/AuthContext";
 
 export default function Layout({ children }) {
   // const { Clicked } = useClick();
+  const { currentUser } = useAuth();
 
   return (
     <div className={classes.layout}>
