@@ -76,10 +76,9 @@ export default function CashCounter() {
                 <Close />
               </p>
               <input
-                type="text"
+                type="number"
                 value={denomination.count}
                 id={`input-${index}`}
-                maxLength={6}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onChange={(e) => handleInputChange(e, index)}
               />

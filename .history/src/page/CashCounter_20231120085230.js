@@ -79,7 +79,7 @@ export default function CashCounter() {
                 type="text"
                 value={denomination.count}
                 id={`input-${index}`}
-                maxLength={6}
+                maxLength={12}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onChange={(e) => handleInputChange(e, index)}
               />

@@ -76,20 +76,17 @@ export default function CashCounter() {
                 <Close />
               </p>
               <input
-                type="text"
+                type="number"
                 value={denomination.count}
                 id={`input-${index}`}
-                maxLength={6}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onChange={(e) => handleInputChange(e, index)}
               />
 
               <p>
-                {Number(
-                  denomination.value !== "extra"
-                    ? `${denomination.value * denomination.count}`
-                    : denomination.count
-                ).toLocaleString("en-IN")}
+                {denomination.value !== "extra"
+                  ? `${denomination.value * denomination.count}`
+                  : denomination.count}
               </p>
             </div>
           ))}
@@ -97,12 +94,12 @@ export default function CashCounter() {
             <p className="resetButton" onClick={resetValues}>
               Reset
             </p>
+
             <input type="text" value="Total" disabled />
+
             <p>
-              {Number(
-                total +
-                  (extraDenomination ? Number(extraDenomination.count) : 0)
-              ).toLocaleString("en-IN")}
+              {total +
+                (extraDenomination ? Number(extraDenomination.count) : 0)}
             </p>
           </div>
         </div>
