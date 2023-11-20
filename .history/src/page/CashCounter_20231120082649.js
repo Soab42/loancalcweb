@@ -91,9 +91,9 @@ export default function CashCounter() {
             </div>
           ))}
           <div className="rowCounter">
-            <p className="resetButton" onClick={resetValues}>
+            <button className="reset-button" onClick={resetValues}>
               Reset
-            </p>
+            </button>
 
             <input type="text" value="Total" disabled />
 

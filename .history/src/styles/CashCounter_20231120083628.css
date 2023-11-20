@@ -114,7 +114,6 @@
 }
 .resetButton:hover {
   background: rgb(239, 67, 67);
-  opacity: 0.9;
+  opacity: 0.7;
   color: #e6efec;
-  transition: all 700ms cubic-bezier(0.075, 0.82, 0.165, 1);
 }

@@ -1,6 +1,6 @@
 import { Lock, Mail } from "@mui/icons-material";
 import { Alert } from "@mui/material";
-
+import GoogleButton from "react-google-button";
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthContext";
@@ -175,32 +175,10 @@ export default function Login() {
             display: "flex",
             justifyContent: "center",
             gap: ".7rem",
+            borderRadius: "5rem",
           }}
         >
-          <p>Or login with</p>
-          <div
-            style={{ all: "unset", cursor: "pointer", display: "flex" }}
-            onClick={glogin}
-          >
-            <img
-              style={{ width: "1.3rem" }}
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-              alt=""
-            />
-            <p style={{ fontWeight: "bolder" }}></p>
-          </div>
-
-          {/* <div
-            style={{
-              all: "unset",
-              color: "#4267B2",
-              fontSize: "1rem",
-              cursor: "pointer",
-            }}
-            onClick={"fblogin"}
-          >
-            <Facebook />
-          </div> */}
+          <GoogleButton onClick={glogin} />
         </div>
       </form>
     </div>

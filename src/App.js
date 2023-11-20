@@ -39,14 +39,7 @@ function App() {
                 </PublicRoute>
               }
             />
-            <Route
-              path="cashCounter"
-              element={
-                <PublicRoute>
-                  <CashCounterPage />
-                </PublicRoute>
-              }
-            />
+            <Route path="cashCounter" element={<CashCounterPage />} />
             <Route path="print/:id" element={<Print />} />
             {/* <Route path="test" element={<Test />} /> */}
             <Route

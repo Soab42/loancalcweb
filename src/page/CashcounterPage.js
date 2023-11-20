@@ -5,6 +5,8 @@ import { Add, Cancel } from "@mui/icons-material";
 export default function CashCounterPage() {
   const [counters, setCounters] = useState([<CashCounter key={0} />]);
 
+  // const handleKeyUp = (e) => {};
+
   const addCounter = () => {
     const newCounters = [...counters, <CashCounter key={counters.length} />];
     setCounters(newCounters);

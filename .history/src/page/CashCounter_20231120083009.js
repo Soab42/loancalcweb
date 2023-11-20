@@ -91,7 +91,10 @@ export default function CashCounter() {
             </div>
           ))}
           <div className="rowCounter">
-            <p className="resetButton" onClick={resetValues}>
+            <p
+              style={{ background: "rgb(100 100 100)", textAlign: "center" }}
+              onClick={resetValues}
+            >
               Reset
             </p>
 
