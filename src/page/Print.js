@@ -56,12 +56,12 @@ function Print({ children }) {
               justifySelf: "center",
             }}
           >
-            {/* <img style={{ height: "2rem" }} src="/pmk.png" alt="" /> */}
+            <img style={{ height: "2rem" }} src="/pmk.png" alt="" />
             <div>
-              {/* <h2>Palli Mangol Karmosuchi</h2> */}
-              <h1>.........................</h1>
-              {/* <p>Zirabo,ashulia,dhaka</p> */}
-              <h2>..........................</h2>
+              <h2>Palli Mangol Karmosuchi</h2>
+              {/* <h1>.........................</h1> */}
+              <p>Zirabo,ashulia,dhaka</p>
+              {/* <h2>..........................</h2> */}
             </div>
           </div>
 
