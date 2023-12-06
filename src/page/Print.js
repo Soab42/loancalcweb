@@ -82,7 +82,7 @@ function Print({ children }) {
               </section>
             </p>
             <p style={{ display: "flex", gap: "1rem" }}>
-              Date:
+              Print Date:
               <section style={{ fontWeight: "bold" }}>
                 {moment(Date()).format("DD-MM-yyyy")}
               </section>
